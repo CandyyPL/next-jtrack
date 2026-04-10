@@ -30,6 +30,8 @@ export default function SignUpForm() {
   });
 
   const onSubmit = async (formData: SignUpFormType) => {
+    setError('');
+
     await signUp.email(
       {
         name: formData.name,
@@ -45,11 +47,10 @@ export default function SignUpForm() {
         },
         onError: (ctx) => {
           setError(ctx.error.message);
+          setLoading(false);
         },
       }
     );
-
-    setLoading(false);
   };
 
   return (

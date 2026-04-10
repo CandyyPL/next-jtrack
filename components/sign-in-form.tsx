@@ -8,19 +8,46 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { SignInFormType, SignInFormSchema } from '@/lib/types';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signIn } from '@/lib/auth-client';
+import { MoonLoader } from 'react-spinners';
 
 export default function SignInForm() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
-      name: '',
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = (data: SignInFormType) => {
-    console.log(data);
+  const onSubmit = async (formData: SignInFormType) => {
+    setError('');
+
+    await signIn.email(
+      {
+        email: formData.email,
+        password: formData.password,
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          router.push('/dashboard');
+        },
+        onError: (ctx) => {
+          setError(ctx.error.message);
+          setLoading(false);
+        },
+      }
+    );
   };
 
   return (
@@ -28,6 +55,11 @@ export default function SignInForm() {
       onSubmit={form.handleSubmit(onSubmit)}
       className='space-y-4'>
       <CardContent className='space-y-4'>
+        {error && (
+          <div className='w-full rounded-md bg-red-400/30 p-3 font-medium text-red-500'>
+            Error: {error}
+          </div>
+        )}
         <FieldSet>
           <Controller
             name='email'
@@ -72,8 +104,15 @@ export default function SignInForm() {
       <CardFooter className='flex flex-col space-y-4'>
         <Button
           type='submit'
-          className='hover:bg-primary/90 h-12 w-full text-lg'>
-          Sign In
+          className='hover:bg-primary/90 h-12 w-full text-lg'
+          disabled={loading}>
+          Sign In{' '}
+          {loading && (
+            <MoonLoader
+              size={20}
+              color='black'
+            />
+          )}
         </Button>
         <p className='text-center text-sm text-gray-600'>
           Don't have an account?{' '}
