@@ -15,3 +15,30 @@ export const SignUpFormSchema = SignInFormSchema.extend({
 
 export type SignInFormType = z.infer<typeof SignInFormSchema>;
 export type SignUpFormType = z.infer<typeof SignUpFormSchema>;
+
+export type Board = {
+  id: string;
+  userId: string;
+  name: string;
+};
+
+export type Column = {
+  id: string;
+  boardId: string;
+  name: string;
+  listOrder: number;
+};
+
+export type Application = {
+  id: string;
+  columnId: string;
+  company: string;
+  position: string;
+  location: string;
+  status: string;
+  listOrder: number;
+  salary: string;
+  jobUrl: string;
+  desc: string;
+  appliedDate: string;
+};
