@@ -12,6 +12,7 @@ import { signOut, useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { deleteUser } from '@/lib/delete-user';
 
 export default function NavbarButtons() {
   const { data: session } = useSession();
@@ -21,6 +22,13 @@ export default function NavbarButtons() {
   const handleLogout = async () => {
     await signOut();
     router.push('/');
+  };
+
+  const handleDelete = async () => {
+    if (session) {
+      await deleteUser(session.user.id);
+      await handleLogout();
+    }
   };
 
   return (
@@ -36,8 +44,7 @@ export default function NavbarButtons() {
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                className='relative h-10 w-10 rounded-full'>
+              <Button className='relative h-10 w-10 rounded-full'>
                 <Avatar className='h-10 w-10'>
                   <AvatarFallback className='bg-primary text-white'>
                     {session?.user.name.charAt(0).toUpperCase()}
@@ -62,6 +69,11 @@ export default function NavbarButtons() {
                 onClick={() => handleLogout()}
                 className='cursor-pointer'>
                 Logout
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleDelete()}
+                className='cursor-pointer text-red-500'>
+                Delete Account
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
