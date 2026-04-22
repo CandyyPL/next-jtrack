@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { headers } from 'next/headers';
 import { Pool } from 'pg';
+import { initUserBoards } from '@/lib/init-user-board';
 
 export const auth = betterAuth({
   database: new Pool({
@@ -8,6 +9,17 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          if (user.id != null) {
+            await initUserBoards(user.id);
+          }
+        },
+      },
+    },
   },
 });
 
