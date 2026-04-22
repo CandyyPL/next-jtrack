@@ -1,6 +1,6 @@
 import HeroImageGallery from '@/components/hero-image-gallery';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
+import { Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
+import StartButton from '@/components/start-button';
 
 export default function Home() {
   return (
@@ -15,11 +15,7 @@ export default function Home() {
               Capture, organize and manage your job search in one place.
             </p>
             <div className='flex flex-col items-center gap-4'>
-              <Button
-                size='lg'
-                className='h-12 px-8 text-lg font-medium'>
-                Start for free <ArrowRight className='ml-2' />
-              </Button>
+              <StartButton />
               <p className='text-muted-foreground text-sm'>
                 Free forever. No credit card required.
               </p>
