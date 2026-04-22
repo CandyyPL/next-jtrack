@@ -19,6 +19,8 @@ export default async function Dashboard() {
 
   const board = rawData as Board;
 
+  // TODO: current state: job applications are created but not yet displayed nor queried to columns
+
   return (
     <main className='min-h-[calc(100vh-4rem-1px)]'>
       <div className='container mx-auto p-6'>
