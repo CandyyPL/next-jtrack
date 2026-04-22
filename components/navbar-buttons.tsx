@@ -12,7 +12,7 @@ import { signOut, useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { deleteUser } from '@/lib/delete-user';
+import { deleteUser } from '@/lib/actions/delete-user';
 
 export default function NavbarButtons() {
   const { data: session } = useSession();
