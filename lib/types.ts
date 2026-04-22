@@ -38,7 +38,19 @@ export type Application = {
   status: string;
   listOrder: number;
   salary: string;
-  jobUrl: string;
+  url: string;
   desc: string;
-  appliedDate: string;
 };
+
+export const JobFormSchema = z.object({
+  company: z.string().nonempty(),
+  position: z.string().nonempty(),
+  location: z.string(),
+  salary: z.string(),
+  url: z.httpUrl().or(z.literal('')),
+  tags: z.string(),
+  desc: z.string().max(200),
+  notes: z.string().max(100),
+});
+
+export type JobFormDataType = z.infer<typeof JobFormSchema>;
