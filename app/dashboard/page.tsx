@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { getSession } from '@/lib/auth';
 import { Board } from '@/lib/types';
-import KanbanBoard from '@/components/kanban-board';
+import KanbanBoard from '@/components/kanban/kanban-board';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
