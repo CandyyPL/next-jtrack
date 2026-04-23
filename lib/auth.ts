@@ -7,6 +7,12 @@ export const auth = betterAuth({
   database: new Pool({
     connectionString: process.env.SUPABASE_DB_URL!,
   }),
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 60,
+    },
+  },
   emailAndPassword: {
     enabled: true,
   },

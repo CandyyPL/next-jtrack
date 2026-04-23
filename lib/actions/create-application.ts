@@ -3,6 +3,7 @@
 import { supabase } from '@/lib/supabase';
 import { Application, JobFormDataType } from '@/lib/types';
 import { getSession } from '@/lib/auth';
+import { revalidatePath } from 'next/cache';
 
 export async function createApplication(
   formData: JobFormDataType,
@@ -25,6 +26,8 @@ export async function createApplication(
     status: 'applied',
     listOrder: count ?? 0,
   };
+
+  revalidatePath('/dashboard');
 
   return supabase.from('application').insert(application);
 }
