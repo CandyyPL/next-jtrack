@@ -1,3 +1,5 @@
+'use server';
+
 import { supabase } from '@/lib/supabase';
 import { Board } from '@/lib/types';
 import { DEFAULT_COLUMNS } from '@/lib/default-columns';
