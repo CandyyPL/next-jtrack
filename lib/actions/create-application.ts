@@ -26,5 +26,5 @@ export async function createApplication(
     listOrder: count ?? 0,
   };
 
-  await supabase.from('application').insert(application);
+  return supabase.from('application').insert(application);
 }
