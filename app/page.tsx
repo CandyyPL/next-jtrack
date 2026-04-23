@@ -1,6 +1,6 @@
-import HeroImageGallery from '@/components/hero-image-gallery';
+import HeroImageGallery from '@/components/main-page/hero-image-gallery';
 import { Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
-import StartButton from '@/components/start-button';
+import StartButton from '@/components/main-page/start-button';
 
 export default function Home() {
   return (
