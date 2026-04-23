@@ -3,8 +3,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import SignInForm from '@/components/sign-in-form';
+} from '@/components/shadcn/card';
+import SignInForm from '@/components/forms/sign-in-form';
 
 export default function SignIn() {
   return (
