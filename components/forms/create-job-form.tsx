@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Field, FieldLabel, FieldSet } from '@/components/ui/field';
+import { Field, FieldLabel, FieldSet } from '@/components/shadcn/field';
 import { Controller, useForm } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { Input } from '@/components/shadcn/input';
+import { Textarea } from '@/components/shadcn/textarea';
+import { DialogFooter } from '@/components/shadcn/dialog';
+import { Button } from '@/components/shadcn/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JobFormSchema, JobFormDataType } from '@/lib/types';
 import { createApplication } from '@/lib/actions/create-application';
