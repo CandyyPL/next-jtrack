@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JobFormSchema, JobFormDataType } from '@/lib/types';
 import { createApplication } from '@/lib/actions/create-application';
+import { MoonLoader } from 'react-spinners';
 
 type Props = {
   closeDialog: () => void;
@@ -33,12 +34,26 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
   });
 
   const onSubmit = async (data: JobFormDataType) => {
-    await createApplication(data, columnId);
+    setLoading(true);
+    const { error } = await createApplication(data, columnId);
+
+    if (error) {
+      setError(error.details);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(false);
     closeDialog();
   };
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
+      {error && (
+        <div className='w-full rounded-md bg-red-400/30 p-3 font-medium text-red-500'>
+          Error: {error}
+        </div>
+      )}
       <FieldSet>
         <div className='grid grid-cols-2 gap-4'>
           <Controller
@@ -174,7 +189,17 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
             onClick={() => closeDialog()}>
             Cancel
           </Button>
-          <Button type='submit'>Add Application</Button>
+          <Button
+            type='submit'
+            disabled={loading}>
+            Add Application
+            {loading && (
+              <MoonLoader
+                size={14}
+                color='black'
+              />
+            )}
+          </Button>
         </DialogFooter>
       </FieldSet>
     </form>
