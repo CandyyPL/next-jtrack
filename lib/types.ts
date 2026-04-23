@@ -40,6 +40,7 @@ export type Application = {
   salary: string;
   url: string;
   desc: string;
+  tags: string;
 };
 
 export const JobFormSchema = z.object({
