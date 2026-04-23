@@ -2,7 +2,7 @@
 
 import { Application, Column } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
-import { Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
+import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { deleteApplication } from '@/lib/actions/delete-application';
+import { useState } from 'react';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -20,19 +22,31 @@ export default function JobApplicationCard({
   job,
   columns,
 }: JobApplicationCardProps) {
+  const [isDeleting, setDeleting] = useState(false);
+
   const parseJobTags = (tags: string) => {
     const arr = tags.split(',');
     return arr;
   };
 
+  const handleDelete = async () => {
+    setDeleting(true);
+    await deleteApplication(job.id);
+  };
+
   return (
     <>
-      <Card className='group cursor-pointer shadow-sm transition-shadow hover:shadow-lg'>
-        <CardContent className='p-4'>
+      <Card
+        className={`group cursor-pointer shadow-sm transition-shadow hover:shadow-lg ${isDeleting && 'pointer-events-none bg-pink-50'}`}>
+        <CardContent className='px-4'>
           <div className='flex items-start justify-between gap-2'>
             <div className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
-              <p className='text-muted-foreground text-xs'>{job.company}</p>
+              <div className='flex items-center'>
+                <p className='text-muted-foreground text-xs'>{job.company}</p>
+                <Dot className='text-muted-foreground' />
+                <p className='text-muted-foreground text-base'>{job.salary}</p>
+              </div>
               {job.desc && (
                 <p className='text-muted-foreground my-2 line-clamp-2 text-xs'>
                   {job.desc}
@@ -71,17 +85,21 @@ export default function JobApplicationCard({
                 <DropdownMenuContent
                   align='end'
                   className='w-fit'>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className='cursor-pointer'>
                     <Edit2 className='mr-2 size-4' /> Edit
                   </DropdownMenuItem>
                   {columns
                     ?.filter((col) => col.id !== job.columnId)
                     .map((col) => (
-                      <DropdownMenuItem key={col.id}>
+                      <DropdownMenuItem
+                        key={col.id}
+                        className='cursor-pointer'>
                         Move to {col.name}
                       </DropdownMenuItem>
                     ))}
-                  <DropdownMenuItem className='text-destructive'>
+                  <DropdownMenuItem
+                    className='text-destructive cursor-pointer'
+                    onClick={() => handleDelete()}>
                     <Trash2 className='mr-2 size-4' /> Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>
