@@ -5,8 +5,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
+} from '@/components/shadcn/dropdown-menu';
+import { Button } from '@/components/shadcn/button';
 import { MoreVertical, Trash2 } from 'lucide-react';
 
 export default function ColumnDropdown() {

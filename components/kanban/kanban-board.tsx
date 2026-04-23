@@ -2,7 +2,7 @@ import { Application, Board, Column } from '@/lib/types';
 import React from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import { databaseSelect } from '@/lib/actions/database-select';
-import DroppableColumn from '@/components/droppable-column';
+import DroppableColumn from '@/components/kanban/droppable-column';
 
 type Props = {
   board: Board;

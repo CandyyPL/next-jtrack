@@ -1,5 +1,5 @@
 import { Application, Column } from '@/lib/types';
-import JobApplicationCard from '@/components/job-application-card';
+import JobApplicationCard from '@/components/kanban/job-application/job-application-card';
 
 type SortableJobCardProps = {
   job: Application;

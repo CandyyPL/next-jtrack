@@ -1,10 +1,15 @@
 import { Application, Column } from '@/lib/types';
 import React from 'react';
-import { ColumnConfig } from '@/components/kanban-board';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import CreateJobDialog from '@/components/create-job-dialog';
-import ColumnDropdown from '@/components/column-dropdown';
-import SortableJobCard from '@/components/sortable-job-card';
+import { ColumnConfig } from '@/components/kanban/kanban-board';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/shadcn/card';
+import CreateJobDialog from '@/components/dialogs/create-job-dialog';
+import ColumnDropdown from '@/components/kanban/column-dropdown';
+import SortableJobCard from '@/components/kanban/job-application/sortable-job-card';
 
 type DroppableColumnProps = {
   columns: Column[];
