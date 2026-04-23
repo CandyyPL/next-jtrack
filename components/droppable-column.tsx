@@ -1,29 +1,25 @@
-'use client';
-
-import { Column } from '@/lib/types';
+import { Application, Column } from '@/lib/types';
 import React from 'react';
 import { ColumnConfig } from '@/components/kanban-board';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { MoreVertical, Trash2 } from 'lucide-react';
 import CreateJobDialog from '@/components/create-job-dialog';
+import ColumnDropdown from '@/components/column-dropdown';
+import SortableJobCard from '@/components/sortable-job-card';
 
 type DroppableColumnProps = {
-  column: Column;
+  columns: Column[];
+  col: Column;
   config: ColumnConfig;
   boardId: string;
+  jobs: Application[];
 };
 
 export default function DroppableColumn({
-  column,
+  columns,
+  col,
   config,
   boardId,
+  jobs,
 }: DroppableColumnProps) {
   return (
     <Card className='min-w-75 shrink-0 p-0 shadow-md'>
@@ -32,31 +28,21 @@ export default function DroppableColumn({
           <div className='flex items-center gap-2'>
             {config.icon}
             <CardTitle className='text-base font-semibold text-white'>
-              {column.name}
+              {col.name}
             </CardTitle>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant='ghost'
-                size='icon'
-                className='size-8 text-white hover:bg-white/20'>
-                <MoreVertical className='size-4' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align='end'
-              className='w-fit'>
-              <DropdownMenuItem className='text-destructive'>
-                <Trash2 className='mr-2 size-4' />
-                Delete Column
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ColumnDropdown />
         </div>
       </CardHeader>
       <CardContent className='min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 pt-4'>
-        <CreateJobDialog columnId={column.id} />
+        {jobs?.map((job) => (
+          <SortableJobCard
+            key={job.id}
+            job={job}
+            columns={columns}
+          />
+        ))}
+        <CreateJobDialog columnId={col.id} />
       </CardContent>
     </Card>
   );

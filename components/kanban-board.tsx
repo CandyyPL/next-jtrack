@@ -1,4 +1,4 @@
-import { Board, Column } from '@/lib/types';
+import { Application, Board, Column } from '@/lib/types';
 import React from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import { databaseSelect } from '@/lib/actions/database-select';
@@ -43,19 +43,32 @@ export default async function KanbanBoard({ board, userId }: Props) {
     filters: { boardId: board.id },
   });
 
+  const sortedColumns =
+    columns?.sort((a, b) => a.listOrder - b.listOrder) || [];
+
   return (
     <>
       <div>
         <div>
-          {columns?.map((col) => {
+          {sortedColumns.map(async (col) => {
             const config = columnConfig[col.listOrder];
+
+            const jobs = await databaseSelect<Application[]>({
+              table: 'application',
+              filters: { columnId: col.id },
+            });
+
+            const sortedJobs =
+              jobs?.sort((a, b) => a.listOrder - b.listOrder) || [];
 
             return (
               <DroppableColumn
                 key={col.id}
-                column={col}
+                columns={sortedColumns}
+                col={col}
                 config={config}
                 boardId={board.id}
+                jobs={sortedJobs}
               />
             );
           })}
