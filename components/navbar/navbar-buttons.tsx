@@ -6,12 +6,12 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+} from '@/components/shadcn/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/shadcn/avatar';
 import { signOut, useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shadcn/button';
 import { deleteUser } from '@/lib/actions/delete-user';
 
 export default function NavbarButtons() {
