@@ -22,7 +22,7 @@ export default function DroppableColumn({
   jobs,
 }: DroppableColumnProps) {
   return (
-    <Card className='min-w-75 shrink-0 p-0 shadow-md'>
+    <Card className='min-w-75 shrink-0 gap-0 p-0 shadow-md'>
       <CardHeader className={`${config.color} rounded-t-lg py-3 text-white`}>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -34,7 +34,7 @@ export default function DroppableColumn({
           <ColumnDropdown />
         </div>
       </CardHeader>
-      <CardContent className='min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 pt-4'>
+      <CardContent className='min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
         {jobs?.map((job) => (
           <SortableJobCard
             key={job.id}

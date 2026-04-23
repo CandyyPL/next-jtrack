@@ -27,39 +27,52 @@ export default function JobApplicationCard({
 
   return (
     <>
-      <Card>
-        <CardContent>
-          <div>
-            <div>
-              <h3>{job.position}</h3>
-              <p>{job.company}</p>
-              {job.desc && <p>{job.desc}</p>}
-              {job.tags &&
-                parseJobTags(job.tags).map((tag, key) => (
-                  <span key={key}>{tag}</span>
-                ))}
+      <Card className='group cursor-pointer shadow-sm transition-shadow hover:shadow-lg'>
+        <CardContent className='p-4'>
+          <div className='flex items-start justify-between gap-2'>
+            <div className='min-w-0 flex-1'>
+              <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
+              <p className='text-muted-foreground text-xs'>{job.company}</p>
+              {job.desc && (
+                <p className='text-muted-foreground my-2 line-clamp-2 text-xs'>
+                  {job.desc}
+                </p>
+              )}
+              {job.tags && job.tags.length > 0 && (
+                <div className='mb-2 flex flex-wrap gap-1'>
+                  {parseJobTags(job.tags).map((tag, key) => (
+                    <span
+                      key={key}
+                      className='rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700'>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
               {job.url && (
                 <a
                   target='_blank'
-                  href={job.url}>
-                  <ExternalLink /> Visit Offer
+                  href={job.url}
+                  className='text-primary my-1 inline-flex items-center gap-1 text-xs hover:underline'>
+                  <ExternalLink className='size-3' /> Visit Offer
                 </a>
               )}
             </div>
-            <div>
+            <div className='flex items-start gap-1'>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant='ghost'
-                    size='icon'>
-                    <MoreVertical />
+                    size='icon'
+                    className='size-8'>
+                    <MoreVertical className='size-4' />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align='end'
                   className='w-fit'>
                   <DropdownMenuItem>
-                    <Edit2 /> Edit
+                    <Edit2 className='mr-2 size-4' /> Edit
                   </DropdownMenuItem>
                   {columns
                     ?.filter((col) => col.id !== job.columnId)
@@ -68,8 +81,8 @@ export default function JobApplicationCard({
                         Move to {col.name}
                       </DropdownMenuItem>
                     ))}
-                  <DropdownMenuItem>
-                    <Trash2 /> Delete
+                  <DropdownMenuItem className='text-destructive'>
+                    <Trash2 className='mr-2 size-4' /> Delete
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
