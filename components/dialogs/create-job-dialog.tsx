@@ -7,10 +7,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from '@/components/shadcn/dialog';
+import { Button } from '@/components/shadcn/button';
 import { Plus } from 'lucide-react';
-import CreateJobForm from '@/components/create-job-form';
+import CreateJobForm from '@/components/forms/create-job-form';
 import { useState } from 'react';
 
 type Props = {
