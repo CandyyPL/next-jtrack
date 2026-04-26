@@ -1,13 +1,6 @@
 import { Application, Column } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
-import {
-  Dot,
-  Edit2,
-  ExternalLink,
-  GripVertical,
-  MoreVertical,
-  Trash2,
-} from 'lucide-react';
+import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +10,7 @@ import {
 import { Button } from '@/components/shadcn/button';
 import { deleteApplication } from '@/lib/actions/delete-application';
 import { useState } from 'react';
-import { updateApplication } from '@/lib/actions/create-application';
+import { updateApplication } from '@/lib/actions/update-application';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
