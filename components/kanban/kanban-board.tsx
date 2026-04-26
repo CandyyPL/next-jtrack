@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Application,
-  Column,
-  ColumnWithApplication,
-  FullBoardData,
-} from '@/lib/types';
+import { Application, ColumnWithApplication, FullBoardData } from '@/lib/types';
 import React, { useState } from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import DroppableColumn from '@/components/kanban/droppable-column';
@@ -24,7 +19,6 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { Card } from '@/components/shadcn/card';
 import JobApplicationCardSkeleton from '@/components/kanban/job-application/job-application-card-skeleton';
 
 type Props = {

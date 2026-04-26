@@ -1,4 +1,4 @@
-import { Application, Column, ColumnWithApplication } from '@/lib/types';
+import { ColumnWithApplication } from '@/lib/types';
 import React from 'react';
 import { ColumnConfig } from '@/components/kanban/kanban-board';
 import {

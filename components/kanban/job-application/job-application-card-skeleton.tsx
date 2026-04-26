@@ -1,18 +1,6 @@
-import { Application, Column } from '@/lib/types';
+import { Application } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/shadcn/dropdown-menu';
-import { Button } from '@/components/shadcn/button';
-import { deleteApplication } from '@/lib/actions/delete-application';
-import { useState } from 'react';
-import { updateApplication } from '@/lib/actions/create-application';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { Dot, ExternalLink } from 'lucide-react';
 
 type JobApplicationCardProps = {
   job: Application | null;
