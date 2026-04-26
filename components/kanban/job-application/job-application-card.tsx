@@ -64,7 +64,7 @@ export default function JobApplicationCard({
         {...attributes}
         {...listeners}
         style={style}
-        className={`group cursor-grab shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'}`}>
+        className={`group cursor-grab shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'} ${isDragging ? 'cursor-grabbing opacity-40' : null}`}>
         <CardContent className='px-4'>
           <div className='flex items-start justify-between gap-2'>
             <div className='min-w-0 flex-1'>

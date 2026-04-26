@@ -25,6 +25,7 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Card } from '@/components/shadcn/card';
+import JobApplicationCardSkeleton from '@/components/kanban/job-application/job-application-card-skeleton';
 
 type Props = {
   boardData: FullBoardData;
@@ -223,6 +224,7 @@ export default function KanbanBoard({ boardData, userId }: Props) {
     <>
       <div className='overflow-x-auto p-2'>
         <DndContext
+          id='kanban-dnd'
           sensors={sensors}
           collisionDetection={closestCorners}
           onDragStart={handleDragStart}
@@ -246,11 +248,7 @@ export default function KanbanBoard({ boardData, userId }: Props) {
           </div>
           <DragOverlay dropAnimation={{ duration: 200 }}>
             {activeItemId ? (
-              <Card className='group cursor-grab shadow-sm transition-shadow hover:shadow-lg'>
-                <div className='flex items-center justify-center p-4'>
-                  {getActiveItem()?.position}
-                </div>
-              </Card>
+              <JobApplicationCardSkeleton job={getActiveItem() ?? null} />
             ) : null}
           </DragOverlay>
         </DndContext>
