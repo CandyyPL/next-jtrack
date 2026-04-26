@@ -110,6 +110,7 @@ export default function JobApplicationCard({
                     className='text-destructive cursor-pointer'
                     onClick={() => handleDelete()}>
                     <Trash2 className='mr-2 size-4' /> Delete
+                    {/* TODO: add delete confirm dialog */}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
