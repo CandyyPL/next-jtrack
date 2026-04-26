@@ -27,7 +27,7 @@ export default function CreateJobDialog({ columnId }: Props) {
       <DialogTrigger asChild>
         <Button
           variant='outline'
-          className='text-muted-foreground flex h-12 w-full justify-start border-2 border-dashed border-zinc-200 bg-white text-lg font-medium'>
+          className='text-muted-foreground flex h-12 w-full justify-start gap-4 border-2 border-dashed border-zinc-200 bg-white text-lg font-medium'>
           <Plus />
           Add Job
         </Button>
