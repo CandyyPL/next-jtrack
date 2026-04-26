@@ -35,12 +35,17 @@ export type Application = {
   company: string;
   position: string;
   location: string;
-  status: string;
   listOrder: number;
   salary: string;
   url: string;
   desc: string;
   tags: string;
+};
+
+export type FullBoardData = Board & {
+  columns: (Column & {
+    applications: Application[];
+  })[];
 };
 
 export const JobFormSchema = z.object({
@@ -55,3 +60,7 @@ export const JobFormSchema = z.object({
 });
 
 export type JobFormDataType = z.infer<typeof JobFormSchema>;
+
+export type Optional<T> = {
+  [K in keyof T]?: T[K];
+};
