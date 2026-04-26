@@ -35,7 +35,7 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
 
   const onSubmit = async (data: JobFormDataType) => {
     setLoading(true);
-    const { error } = await createApplication(data, columnId);
+    const error = await createApplication(data, columnId);
 
     if (error) {
       setError(error.details);

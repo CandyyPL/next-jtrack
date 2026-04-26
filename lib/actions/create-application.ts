@@ -1,7 +1,7 @@
 'use server';
 
 import { supabase } from '@/lib/supabase';
-import { Application, JobFormDataType, Optional } from '@/lib/types';
+import { Application, JobFormDataType } from '@/lib/types';
 import { getSession } from '@/lib/auth';
 import { revalidatePath } from 'next/cache';
 
@@ -26,7 +26,8 @@ export async function createApplication(
     listOrder: count ?? 0,
   };
 
+  const { error } = await supabase.from('application').insert(application);
   revalidatePath('/dashboard');
 
-  return supabase.from('application').insert(application);
+  return error;
 }
