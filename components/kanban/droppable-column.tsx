@@ -38,7 +38,7 @@ export default function DroppableColumn({
           <ColumnDropdown />
         </div>
       </CardHeader>
-      <CardContent className='min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
+      <CardContent className='h-full min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
         {jobs?.map((job) => (
           <JobApplicationCard
             key={job.id}
