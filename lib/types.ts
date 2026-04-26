@@ -42,10 +42,12 @@ export type Application = {
   tags: string;
 };
 
+export type ColumnWithApplication = Column & {
+  applications: Application[];
+};
+
 export type FullBoardData = Board & {
-  columns: (Column & {
-    applications: Application[];
-  })[];
+  columns: ColumnWithApplication[];
 };
 
 export const JobFormSchema = z.object({

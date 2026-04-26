@@ -11,6 +11,8 @@ import { Button } from '@/components/shadcn/button';
 import { deleteApplication } from '@/lib/actions/delete-application';
 import { useState } from 'react';
 import { updateApplication } from '@/lib/actions/create-application';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -22,6 +24,20 @@ export default function JobApplicationCard({
   columns,
 }: JobApplicationCardProps) {
   const [disabled, setDisabled] = useState(false);
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: job.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   const parseJobTags = (tags: string) => {
     const arr = tags.split(',');
@@ -44,7 +60,11 @@ export default function JobApplicationCard({
   return (
     <>
       <Card
-        className={`group cursor-pointer shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'}`}>
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}
+        style={style}
+        className={`group cursor-grab shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'}`}>
         <CardContent className='px-4'>
           <div className='flex items-start justify-between gap-2'>
             <div className='min-w-0 flex-1'>

@@ -1,4 +1,4 @@
-import { Application, Column } from '@/lib/types';
+import { Application, Column, ColumnWithApplication } from '@/lib/types';
 import React from 'react';
 import { ColumnConfig } from '@/components/kanban/kanban-board';
 import {
@@ -10,21 +10,23 @@ import {
 import CreateJobDialog from '@/components/dialogs/create-job-dialog';
 import ColumnDropdown from '@/components/kanban/column-dropdown';
 import JobApplicationCard from '@/components/kanban/job-application/job-application-card';
+import { useDroppable } from '@dnd-kit/core';
+import { SortableContext } from '@dnd-kit/sortable';
 
 type DroppableColumnProps = {
-  columns: Column[];
-  col: Column;
+  columns: ColumnWithApplication[];
+  col: ColumnWithApplication;
   config: ColumnConfig;
   boardId: string;
-  jobs: Application[];
 };
 
 export default function DroppableColumn({
   columns,
   col,
   config,
-  jobs,
 }: DroppableColumnProps) {
+  const { setNodeRef } = useDroppable({ id: col.id });
+
   return (
     <Card className='min-h-150 w-100 shrink-0 gap-0 p-0 shadow-md'>
       <CardHeader className={`${config.color} rounded-t-lg py-3 text-white`}>
@@ -38,14 +40,18 @@ export default function DroppableColumn({
           <ColumnDropdown />
         </div>
       </CardHeader>
-      <CardContent className='h-full min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
-        {jobs?.map((job) => (
-          <JobApplicationCard
-            key={job.id}
-            job={job}
-            columns={columns}
-          />
-        ))}
+      <CardContent
+        ref={setNodeRef}
+        className='h-full min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
+        <SortableContext items={col.applications}>
+          {col.applications?.map((job) => (
+            <JobApplicationCard
+              key={job.id}
+              job={job}
+              columns={columns}
+            />
+          ))}
+        </SortableContext>
         <CreateJobDialog columnId={col.id} />
       </CardContent>
     </Card>
