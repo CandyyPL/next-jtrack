@@ -25,7 +25,9 @@ export default function CreateJobDialog({ columnId }: Props) {
       open={open}
       onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline'>
+        <Button
+          variant='outline'
+          className='text-muted-foreground flex h-12 w-full justify-start border-2 border-dashed border-zinc-200 bg-white text-lg font-medium'>
           <Plus />
           Add Job
         </Button>
