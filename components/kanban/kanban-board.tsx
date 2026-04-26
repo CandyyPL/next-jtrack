@@ -23,7 +23,6 @@ import JobApplicationCardSkeleton from '@/components/kanban/job-application/job-
 
 type Props = {
   boardData: FullBoardData;
-  userId: string;
 };
 
 export type ColumnConfig = {
@@ -54,7 +53,7 @@ const columnConfig: Array<ColumnConfig> = [
   },
 ];
 
-export default function KanbanBoard({ boardData, userId }: Props) {
+export default function KanbanBoard({ boardData }: Props) {
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     boardData.columns
   );

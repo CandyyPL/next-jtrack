@@ -59,10 +59,7 @@ async function DashboardWrapper() {
           <h1 className='text-3xl font-bold text-black'>{boardData.name}</h1>
           <p className='text-gray-600'>Track your job applications.</p>
         </header>
-        <KanbanBoard
-          boardData={boardData}
-          userId={session.user.id}
-        />
+        <KanbanBoard boardData={boardData} />
       </div>
     </main>
   );
