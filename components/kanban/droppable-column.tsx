@@ -11,7 +11,10 @@ import CreateJobDialog from '@/components/dialogs/create-job-dialog';
 import ColumnDropdown from '@/components/kanban/column-dropdown';
 import JobApplicationCard from '@/components/kanban/job-application/job-application-card';
 import { useDroppable } from '@dnd-kit/core';
-import { SortableContext } from '@dnd-kit/sortable';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 
 type DroppableColumnProps = {
   columns: ColumnWithApplication[];
@@ -43,7 +46,9 @@ export default function DroppableColumn({
       <CardContent
         ref={setNodeRef}
         className='h-full min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
-        <SortableContext items={col.applications}>
+        <SortableContext
+          items={col.applications}
+          strategy={verticalListSortingStrategy}>
           {col.applications?.map((job) => (
             <JobApplicationCard
               key={job.id}
