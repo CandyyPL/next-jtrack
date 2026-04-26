@@ -9,7 +9,7 @@ import {
 } from '@/components/shadcn/card';
 import CreateJobDialog from '@/components/dialogs/create-job-dialog';
 import ColumnDropdown from '@/components/kanban/column-dropdown';
-import SortableJobCard from '@/components/kanban/job-application/sortable-job-card';
+import JobApplicationCard from '@/components/kanban/job-application/job-application-card';
 
 type DroppableColumnProps = {
   columns: Column[];
@@ -23,11 +23,10 @@ export default function DroppableColumn({
   columns,
   col,
   config,
-  boardId,
   jobs,
 }: DroppableColumnProps) {
   return (
-    <Card className='min-w-75 shrink-0 gap-0 p-0 shadow-md'>
+    <Card className='min-h-150 w-100 shrink-0 gap-0 p-0 shadow-md'>
       <CardHeader className={`${config.color} rounded-t-lg py-3 text-white`}>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -41,7 +40,7 @@ export default function DroppableColumn({
       </CardHeader>
       <CardContent className='min-h-100 space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
         {jobs?.map((job) => (
-          <SortableJobCard
+          <JobApplicationCard
             key={job.id}
             job={job}
             columns={columns}

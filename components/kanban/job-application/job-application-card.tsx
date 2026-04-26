@@ -1,5 +1,3 @@
-'use client';
-
 import { Application, Column } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
 import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
@@ -12,6 +10,7 @@ import {
 import { Button } from '@/components/shadcn/button';
 import { deleteApplication } from '@/lib/actions/delete-application';
 import { useState } from 'react';
+import { updateApplication } from '@/lib/actions/create-application';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -22,7 +21,7 @@ export default function JobApplicationCard({
   job,
   columns,
 }: JobApplicationCardProps) {
-  const [isDeleting, setDeleting] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const parseJobTags = (tags: string) => {
     const arr = tags.split(',');
@@ -30,18 +29,27 @@ export default function JobApplicationCard({
   };
 
   const handleDelete = async () => {
-    setDeleting(true);
+    setDisabled(true);
     await deleteApplication(job.id);
+  };
+
+  const handleMove = async (tagetColumnId: string) => {
+    setDisabled(true);
+    await updateApplication(job.id, {
+      columnId: tagetColumnId,
+    });
+    setDisabled(false);
   };
 
   return (
     <>
       <Card
-        className={`group cursor-pointer shadow-sm transition-shadow hover:shadow-lg ${isDeleting && 'pointer-events-none bg-pink-50'}`}>
+        className={`group cursor-pointer shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'}`}>
         <CardContent className='px-4'>
           <div className='flex items-start justify-between gap-2'>
             <div className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
+              <span>Order: {job.listOrder}</span>
               <div className='flex items-center'>
                 <p className='text-muted-foreground text-xs'>{job.company}</p>
                 <Dot className='text-muted-foreground' />
@@ -93,7 +101,8 @@ export default function JobApplicationCard({
                     .map((col) => (
                       <DropdownMenuItem
                         key={col.id}
-                        className='cursor-pointer'>
+                        className='cursor-pointer'
+                        onClick={() => handleMove(col.id)}>
                         Move to {col.name}
                       </DropdownMenuItem>
                     ))}
