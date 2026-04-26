@@ -1,7 +1,7 @@
 'use server';
 
 import { supabase } from '@/lib/supabase';
-import { Application, JobFormDataType } from '@/lib/types';
+import { Application, JobFormDataType, Optional } from '@/lib/types';
 import { getSession } from '@/lib/auth';
 import { revalidatePath } from 'next/cache';
 
@@ -23,7 +23,6 @@ export async function createApplication(
   const application: Omit<Application, 'id'> = {
     ...formData,
     columnId,
-    status: 'applied',
     listOrder: count ?? 0,
   };
 
