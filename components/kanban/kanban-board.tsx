@@ -1,7 +1,7 @@
 'use client';
 
 import { Application, ColumnWithApplication, FullBoardData } from '@/lib/types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import DroppableColumn from '@/components/kanban/droppable-column';
 import {
@@ -60,6 +60,10 @@ export default function KanbanBoard({ boardData }: Props) {
   const [activeItemId, setActiveItemId] = useState<UniqueIdentifier | null>(
     null
   );
+
+  useEffect(() => {
+    setColumns(boardData.columns);
+  }, [boardData]);
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveItemId(event.active.id);
