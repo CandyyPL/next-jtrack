@@ -1,11 +1,13 @@
-import { Application, Board, Column } from '@/lib/types';
+'use client';
+
+import { Application, Board, Column, FullBoardData } from '@/lib/types';
 import React from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import { databaseSelect } from '@/lib/actions/database-select';
 import DroppableColumn from '@/components/kanban/droppable-column';
 
 type Props = {
-  board: Board;
+  boardData: FullBoardData;
   userId: string;
 };
 
@@ -37,38 +39,22 @@ const columnConfig: Array<ColumnConfig> = [
   },
 ];
 
-export default async function KanbanBoard({ board, userId }: Props) {
-  const columns = await databaseSelect<Column[]>({
-    table: 'column',
-    filters: { boardId: board.id },
-  });
-
-  const sortedColumns =
-    columns?.sort((a, b) => a.listOrder - b.listOrder) || [];
-
+export default function KanbanBoard({ boardData, userId }: Props) {
   return (
     <>
-      <div>
-        <div>
-          {sortedColumns.map(async (col) => {
+      <div className='overflow-x-auto p-2'>
+        <div className='flex justify-between gap-4'>
+          {boardData.columns.map((col) => {
             const config = columnConfig[col.listOrder];
-
-            const jobs = await databaseSelect<Application[]>({
-              table: 'application',
-              filters: { columnId: col.id },
-            });
-
-            const sortedJobs =
-              jobs?.sort((a, b) => a.listOrder - b.listOrder) || [];
 
             return (
               <DroppableColumn
                 key={col.id}
-                columns={sortedColumns}
+                columns={boardData.columns}
                 col={col}
                 config={config}
-                boardId={board.id}
-                jobs={sortedJobs}
+                boardId={boardData.id}
+                jobs={col.applications}
               />
             );
           })}
