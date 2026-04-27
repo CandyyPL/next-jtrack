@@ -51,6 +51,7 @@ export default function JobApplicationCard({
               {...listeners}
               className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
+              {/*<span>Order: {job.listOrder}</span>*/}
               <div className='flex items-center'>
                 <p className='text-muted-foreground text-xs'>{job.company}</p>
                 {job.salary && (

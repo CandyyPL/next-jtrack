@@ -1,5 +1,5 @@
 import { Application, ColumnWithApplication } from '@/lib/types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 
 type Props = {
@@ -11,6 +11,13 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     initialColumns ?? []
   );
+
+  // useEffect(() => {
+  //   columns.forEach((col) => {
+  //     console.log(`Column ${col.name}`);
+  //     console.table(col.applications);
+  //   });
+  // }, [columns]);
 
   const handleAddJob = (job: Application, newColumnId: string) => {
     setColumns((prev) =>
