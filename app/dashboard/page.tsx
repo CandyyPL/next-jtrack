@@ -35,7 +35,9 @@ async function getData(userId: string) {
 
   const populatedColumns = columns.map((col) => ({
     ...col,
-    applications: applications.filter((job) => job.columnId === col.id),
+    applications: applications
+      .filter((job) => job.columnId === col.id)
+      .sort((a, b) => a.listOrder - b.listOrder),
   }));
 
   const fullBoardData: FullBoardData = { ...board, columns: populatedColumns };
