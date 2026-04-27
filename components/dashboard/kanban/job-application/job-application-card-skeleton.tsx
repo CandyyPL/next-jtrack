@@ -10,8 +10,7 @@ export default function JobApplicationCardSkeleton({
   job,
 }: JobApplicationCardProps) {
   const parseJobTags = (tags: string) => {
-    const arr = tags.split(',');
-    return arr;
+    return tags.split(',');
   };
 
   return (

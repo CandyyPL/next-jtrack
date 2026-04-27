@@ -19,7 +19,6 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import JobApplicationCardSkeleton from '@/components/dashboard/kanban/job-application/job-application-card-skeleton';
 import { useColumns } from '@/lib/hooks/useColumns';
-import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
 
 type Props = {
   boardData: FullBoardData;
