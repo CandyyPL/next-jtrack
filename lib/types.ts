@@ -69,7 +69,6 @@ export const JobFormSchema = z.object({
   url: z.httpUrl().or(z.literal('')),
   tags: z.string(),
   desc: z.string().max(200),
-  notes: z.string().max(100),
 });
 
 export type JobFormDataType = z.infer<typeof JobFormSchema>;

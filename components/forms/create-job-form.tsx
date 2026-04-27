@@ -29,7 +29,6 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
       url: '',
       tags: '',
       desc: '',
-      notes: '',
     },
   });
 
@@ -160,23 +159,6 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
                   placeholder='Brief description of the job...'
                   className='h-26 resize-none'
                   maxLength={200}
-                />
-              </Field>
-            )}
-          />
-          <Controller
-            name='notes'
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Notes</FieldLabel>
-                <Textarea
-                  {...field}
-                  id={field.name}
-                  aria-invalid={fieldState.invalid}
-                  placeholder='Any additional information'
-                  className='h-16 resize-none'
-                  maxLength={100}
                 />
               </Field>
             )}
