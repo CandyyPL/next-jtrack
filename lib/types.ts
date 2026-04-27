@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { type DraggableAttributes } from '@dnd-kit/core';
+import { type SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
+import { type Transform } from '@dnd-kit/utilities';
 
 export const SignInFormSchema = z.object({
   email: z.email(),
@@ -48,6 +51,14 @@ export type ColumnWithApplication = Column & {
 
 export type FullBoardData = Board & {
   columns: ColumnWithApplication[];
+};
+
+export type SortableProps = {
+  attributes: DraggableAttributes;
+  listeners: SyntheticListenerMap | undefined;
+  setNodeRef: (node: HTMLElement | null) => void;
+  transform: Transform | null;
+  transition: string | undefined;
 };
 
 export const JobFormSchema = z.object({

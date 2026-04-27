@@ -9,12 +9,12 @@ import {
 } from '@/components/shadcn/card';
 import CreateJobDialog from '@/components/dialogs/create-job-dialog';
 import ColumnDropdown from '@/components/dashboard/kanban/column-dropdown';
-import JobApplicationCard from '@/components/dashboard/kanban/job-application/job-application-card';
 import { useDroppable } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import JobApplicationCardWrapper from '@/components/dashboard/kanban/job-application/job-application-card-wrapper';
 
 type DroppableColumnProps = {
   columns: ColumnWithApplication[];
@@ -50,7 +50,7 @@ export default function DroppableColumn({
           items={col.applications}
           strategy={verticalListSortingStrategy}>
           {col.applications?.map((job) => (
-            <JobApplicationCard
+            <JobApplicationCardWrapper
               key={job.id}
               job={job}
               columns={columns}

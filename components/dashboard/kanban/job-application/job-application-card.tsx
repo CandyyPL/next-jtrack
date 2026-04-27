@@ -1,4 +1,4 @@
-import { Application, ColumnWithApplication } from '@/lib/types';
+import { Application, ColumnWithApplication, SortableProps } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
 import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
 import {
@@ -9,39 +9,28 @@ import {
 } from '@/components/shadcn/dropdown-menu';
 import { Button } from '@/components/shadcn/button';
 import { useState } from 'react';
-import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useColumns } from '@/lib/hooks/useColumns';
 
 type JobApplicationCardProps = {
   job: Application;
   columns: ColumnWithApplication[];
+  props: SortableProps;
 };
 
 export default function JobApplicationCard({
   job,
   columns,
+  props,
 }: JobApplicationCardProps) {
   const { handleManualMoveJob, handleDeleteJob } = useColumns();
   const [disabled, setDisabled] = useState(false);
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: job.id });
+  const { attributes, listeners, setNodeRef, transform, transition } = props;
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-  };
-
-  const parseJobTags = (tags: string) => {
-    const arr = tags.split(',');
-    return arr;
   };
 
   const deleteJob = (jobId: string) => {
@@ -55,18 +44,23 @@ export default function JobApplicationCard({
         ref={setNodeRef}
         {...attributes}
         style={style}
-        className={`group cursor-grab shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'} ${isDragging ? 'cursor-grabbing opacity-40' : null}`}>
+        className={`cursor-grab shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'}`}>
         <CardContent className='px-4'>
           <div className='flex items-start justify-between gap-2'>
             <div
               {...listeners}
               className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
-              <span>Order: {job.listOrder}</span>
               <div className='flex items-center'>
                 <p className='text-muted-foreground text-xs'>{job.company}</p>
-                <Dot className='text-muted-foreground' />
-                <p className='text-muted-foreground text-base'>{job.salary}</p>
+                {job.salary && (
+                  <>
+                    <Dot className='text-muted-foreground' />
+                    <p className='text-muted-foreground text-base'>
+                      {job.salary}
+                    </p>
+                  </>
+                )}
               </div>
               {job.desc && (
                 <p className='text-muted-foreground my-2 line-clamp-2 text-xs'>
@@ -75,7 +69,7 @@ export default function JobApplicationCard({
               )}
               {job.tags && job.tags.length > 0 && (
                 <div className='mb-2 flex flex-wrap gap-1'>
-                  {parseJobTags(job.tags).map((tag, key) => (
+                  {job.tags.split(',').map((tag, key) => (
                     <span
                       key={key}
                       className='rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700'>

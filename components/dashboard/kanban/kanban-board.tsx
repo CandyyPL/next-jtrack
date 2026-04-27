@@ -17,7 +17,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import JobApplicationCardSkeleton from '@/components/dashboard/kanban/job-application/job-application-card-skeleton';
+import JobApplicationCardOverlay from '@/components/dashboard/kanban/job-application/job-application-card-overlay';
 import { useColumns } from '@/lib/hooks/useColumns';
 
 type Props = {
@@ -242,7 +242,7 @@ export default function KanbanBoard({ boardData }: Props) {
           </div>
           <DragOverlay dropAnimation={{ duration: 200 }}>
             {activeItemId ? (
-              <JobApplicationCardSkeleton job={getActiveItem() ?? null} />
+              <JobApplicationCardOverlay job={getActiveItem() ?? null} />
             ) : null}
           </DragOverlay>
         </DndContext>
