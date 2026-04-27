@@ -23,7 +23,7 @@ export default function JobApplicationCard({
   columns,
   props,
 }: JobApplicationCardProps) {
-  const { handleManualMoveJob, handleDeleteJob } = useColumns();
+  const { handleMoveJob, handleDeleteJob } = useColumns();
   const [disabled, setDisabled] = useState(false);
 
   const { attributes, listeners, setNodeRef, transform, transition } = props;
@@ -51,6 +51,10 @@ export default function JobApplicationCard({
               {...listeners}
               className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
+              <div className='flex flex-col'>
+                <span>Column: {job.columnId.slice(0, 7)}</span>
+                <span>Order: {job.listOrder}</span>
+              </div>
               <div className='flex items-center'>
                 <p className='text-muted-foreground text-xs'>{job.company}</p>
                 {job.salary && (
@@ -109,7 +113,7 @@ export default function JobApplicationCard({
                       <DropdownMenuItem
                         key={col.id}
                         className='cursor-pointer'
-                        onClick={() => handleManualMoveJob(job, col.id)}>
+                        onClick={() => handleMoveJob(job, col.id, -1)}>
                         Move to {col.name}
                       </DropdownMenuItem>
                     ))}

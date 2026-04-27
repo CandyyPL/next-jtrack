@@ -53,13 +53,20 @@ const columnConfig: Array<ColumnConfig> = [
 ];
 
 export default function KanbanBoard({ boardData }: Props) {
-  const { columns, setColumns } = useColumns();
+  const {
+    columns,
+    handleAddJob,
+    handleAddJobAtIndex,
+    handleDeleteJob,
+    handleSwapJobs,
+    handleRenewColumns,
+  } = useColumns();
   const [activeItemId, setActiveItemId] = useState<UniqueIdentifier | null>(
     null
   );
 
   useEffect(() => {
-    setColumns(boardData.columns);
+    handleRenewColumns(boardData.columns);
   }, [boardData]);
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -80,56 +87,35 @@ export default function KanbanBoard({ boardData }: Props) {
     if (!activeColumnId || !overColumnId) return;
     if (activeColumnId === overColumnId) return;
 
-    setColumns((prev) => {
-      const activeColumn = prev.find((col) => col.id === activeColumnId);
-      if (!activeColumn) return prev;
+    const activeColumn = columns.find((col) => col.id === activeColumnId);
+    if (!activeColumn) return;
 
-      const activeItem = activeColumn.applications.find(
-        (item) => item.id === activeItemId
-      );
-      if (!activeItem) return prev;
+    const activeItem = activeColumn.applications.find(
+      (item) => item.id === activeItemId
+    );
+    if (!activeItem) return;
 
-      return prev.map((col) => {
-        if (col.id === activeColumnId) {
-          const newApplications = col.applications
-            .filter((item) => item.id !== activeItemId)
-            .map((item, index) => ({ ...item, listOrder: index }));
+    columns.forEach((col) => {
+      if (col.id === activeColumnId) {
+        handleDeleteJob(activeItemId as string);
 
-          return {
-            ...col,
-            applications: newApplications,
-          };
+        return;
+      }
+
+      if (col.id === overColumnId) {
+        if (overId === overColumnId) {
+          handleAddJob(activeItem, col.id);
+          return;
         }
 
-        if (col.id === overColumnId) {
-          if (overId === overColumnId) {
-            activeItem.listOrder = col.applications.length;
-            activeItem.columnId = overColumnId;
+        const overItemIndex = col.applications.findIndex(
+          (item) => item.id === overId
+        );
 
-            return {
-              ...col,
-              applications: [...col.applications, activeItem],
-            };
-          }
-
-          const overItemIndex = col.applications.findIndex(
-            (item) => item.id === overId
-          );
-
-          if (overItemIndex !== -1) {
-            return {
-              ...col,
-              applications: [
-                ...col.applications.slice(0, overItemIndex + 1),
-                activeItem,
-                ...col.applications.slice(overItemIndex + 1),
-              ],
-            };
-          }
+        if (overItemIndex !== -1) {
+          handleAddJobAtIndex(activeItem, overColumnId, overItemIndex);
         }
-
-        return col;
-      });
+      }
     });
   };
 
@@ -171,23 +157,7 @@ export default function KanbanBoard({ boardData }: Props) {
       );
 
       if (activeIndex !== -1 && overIndex !== -1) {
-        const newApplications = arrayMove(
-          activeColumn.applications,
-          activeIndex,
-          overIndex
-        );
-
-        newApplications.forEach((job, index) => (job.listOrder = index));
-
-        setColumns((prev) => {
-          return prev.map((col, idx) => {
-            if (idx === activeColumnIndex) {
-              return { ...col, applications: newApplications };
-            }
-
-            return col;
-          });
-        });
+        handleSwapJobs(activeColumnId as string, activeIndex, overIndex);
       }
     }
 
