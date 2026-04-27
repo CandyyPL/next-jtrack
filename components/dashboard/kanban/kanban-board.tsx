@@ -1,9 +1,7 @@
-'use client';
-
-import { Application, ColumnWithApplication, FullBoardData } from '@/lib/types';
+import { Application, FullBoardData } from '@/lib/types';
 import React, { useEffect, useState } from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
-import DroppableColumn from '@/components/kanban/droppable-column';
+import DroppableColumn from '@/components/dashboard/kanban/droppable-column';
 import {
   closestCorners,
   DndContext,
@@ -19,7 +17,9 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import JobApplicationCardSkeleton from '@/components/kanban/job-application/job-application-card-skeleton';
+import JobApplicationCardSkeleton from '@/components/dashboard/kanban/job-application/job-application-card-skeleton';
+import { useColumns } from '@/lib/hooks/useColumns';
+import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
 
 type Props = {
   boardData: FullBoardData;
@@ -54,9 +54,7 @@ const columnConfig: Array<ColumnConfig> = [
 ];
 
 export default function KanbanBoard({ boardData }: Props) {
-  const [columns, setColumns] = useState<ColumnWithApplication[]>(
-    boardData.columns
-  );
+  const { columns, setColumns } = useColumns();
   const [activeItemId, setActiveItemId] = useState<UniqueIdentifier | null>(
     null
   );

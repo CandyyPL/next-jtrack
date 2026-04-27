@@ -1,4 +1,4 @@
-import { Application, Column } from '@/lib/types';
+import { Application, Column, ColumnWithApplication } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
 import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
 import {
@@ -13,16 +13,18 @@ import { useState } from 'react';
 import { updateApplication } from '@/lib/actions/update-application';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useColumns } from '@/lib/hooks/useColumns';
 
 type JobApplicationCardProps = {
   job: Application;
-  columns: Column[];
+  columns: ColumnWithApplication[];
 };
 
 export default function JobApplicationCard({
   job,
   columns,
 }: JobApplicationCardProps) {
+  const { handleManualMoveJob, handleDeleteJob } = useColumns();
   const [disabled, setDisabled] = useState(false);
 
   const {
@@ -42,19 +44,6 @@ export default function JobApplicationCard({
   const parseJobTags = (tags: string) => {
     const arr = tags.split(',');
     return arr;
-  };
-
-  const handleDelete = async () => {
-    setDisabled(true);
-    await deleteApplication(job.id);
-  };
-
-  const handleMove = async (tagetColumnId: string) => {
-    setDisabled(true);
-    await updateApplication(job.id, {
-      columnId: tagetColumnId,
-    });
-    setDisabled(false);
   };
 
   return (
@@ -123,13 +112,13 @@ export default function JobApplicationCard({
                       <DropdownMenuItem
                         key={col.id}
                         className='cursor-pointer'
-                        onClick={() => handleMove(col.id)}>
+                        onClick={() => handleManualMoveJob(job, col.id)}>
                         Move to {col.name}
                       </DropdownMenuItem>
                     ))}
                   <DropdownMenuItem
                     className='text-destructive cursor-pointer'
-                    onClick={() => handleDelete()}>
+                    onClick={() => handleDeleteJob(job.id)}>
                     <Trash2 className='mr-2 size-4' /> Delete
                     {/* TODO: add delete confirm dialog */}
                   </DropdownMenuItem>

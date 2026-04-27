@@ -1,6 +1,6 @@
 import { ColumnWithApplication } from '@/lib/types';
 import React from 'react';
-import { ColumnConfig } from '@/components/kanban/kanban-board';
+import { ColumnConfig } from '@/components/dashboard/kanban/kanban-board';
 import {
   Card,
   CardContent,
@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from '@/components/shadcn/card';
 import CreateJobDialog from '@/components/dialogs/create-job-dialog';
-import ColumnDropdown from '@/components/kanban/column-dropdown';
-import JobApplicationCard from '@/components/kanban/job-application/job-application-card';
+import ColumnDropdown from '@/components/dashboard/kanban/column-dropdown';
+import JobApplicationCard from '@/components/dashboard/kanban/job-application/job-application-card';
 import { useDroppable } from '@dnd-kit/core';
 import {
   SortableContext,
