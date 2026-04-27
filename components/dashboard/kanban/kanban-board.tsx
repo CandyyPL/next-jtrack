@@ -176,8 +176,6 @@ export default function KanbanBoard({ boardData }: Props) {
           overIndex
         );
 
-        console.log('move');
-
         newApplications.forEach((job, index) => (job.listOrder = index));
 
         setColumns((prev) => {
