@@ -44,6 +44,11 @@ export default function JobApplicationCard({
     return arr;
   };
 
+  const deleteJob = (jobId: string) => {
+    setDisabled(true);
+    handleDeleteJob(jobId);
+  };
+
   return (
     <>
       <Card
@@ -116,7 +121,7 @@ export default function JobApplicationCard({
                     ))}
                   <DropdownMenuItem
                     className='text-destructive cursor-pointer'
-                    onClick={() => handleDeleteJob(job.id)}>
+                    onClick={() => deleteJob(job.id)}>
                     <Trash2 className='mr-2 size-4' /> Delete
                     {/* TODO: add delete confirm dialog */}
                   </DropdownMenuItem>
