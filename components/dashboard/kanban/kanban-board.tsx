@@ -91,16 +91,20 @@ export default function KanbanBoard({ boardData }: Props) {
 
       return prev.map((col) => {
         if (col.id === activeColumnId) {
+          const newApplications = col.applications
+            .filter((item) => item.id !== activeItemId)
+            .map((item, index) => ({ ...item, listOrder: index }));
+
           return {
             ...col,
-            applications: col.applications.filter(
-              (item) => item.id !== activeItemId
-            ),
+            applications: newApplications,
           };
         }
 
         if (col.id === overColumnId) {
           if (overId === overColumnId) {
+            activeItem.listOrder = col.applications.length;
+
             return {
               ...col,
               applications: [...col.applications, activeItem],
@@ -171,6 +175,10 @@ export default function KanbanBoard({ boardData }: Props) {
           activeIndex,
           overIndex
         );
+
+        console.log('move');
+
+        newApplications.forEach((job, index) => (job.listOrder = index));
 
         setColumns((prev) => {
           return prev.map((col, idx) => {
