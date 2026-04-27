@@ -104,6 +104,7 @@ export default function KanbanBoard({ boardData }: Props) {
         if (col.id === overColumnId) {
           if (overId === overColumnId) {
             activeItem.listOrder = col.applications.length;
+            activeItem.columnId = overColumnId;
 
             return {
               ...col,

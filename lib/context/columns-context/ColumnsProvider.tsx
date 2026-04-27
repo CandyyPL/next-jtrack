@@ -44,7 +44,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     if (job.columnId === targetColumnId) return;
 
     handleDeleteJob(job.id);
-    handleAddJob(job, targetColumnId);
+    const newJob = { ...job, columnId: targetColumnId };
+    handleAddJob(newJob, targetColumnId);
   };
 
   const handleDeleteJob = (jobId: string) => {
