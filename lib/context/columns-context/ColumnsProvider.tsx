@@ -1,5 +1,5 @@
 import { Application, ColumnWithApplication, Optional } from '@/lib/types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 
 type Props = {
@@ -7,17 +7,20 @@ type Props = {
   initialColumns: ColumnWithApplication[] | null;
 };
 
+type ColumnUpdates = {
+  jobId: string;
+  columnId: string;
+  listOrder: number;
+};
+
 export default function ColumnsProvider({ children, initialColumns }: Props) {
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     initialColumns ?? []
   );
 
-  // useEffect(() => {
-  //   columns.forEach((col) => {
-  //     console.log(`Column ${col.name}`);
-  //     console.table(col.applications);
-  //   });
-  // }, [columns]);
+  const [updates, setUpdates] = useState<ColumnUpdates[]>([]);
+
+  useEffect(() => console.log(updates), [updates]);
 
   const handleAddJob = (job: Application, newColumnId: string) => {
     setColumns((prev) =>
@@ -48,7 +51,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
     const newApplications = [
       ...newColumn.applications.slice(0, index),
-      { ...job, listOrder: index },
+      { ...job, listOrder: index, columnId: newColumnId },
       ...newColumn.applications
         .slice(index)
         .map((item) => ({ ...item, listOrder: item.listOrder + 1 })),
@@ -81,6 +84,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     handleDeleteJob(job.id);
     const newJob = { ...job, columnId: targetColumnId, listOrder: order };
     handleAddJob(newJob, targetColumnId);
+    addUpdate(job.id, targetColumnId, order);
   };
 
   const handleUpdateJob = (jobId: string, updates: Optional<Application>) => {
@@ -170,6 +174,10 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
   const handleRenewColumns = (columns: ColumnWithApplication[]) => {
     setColumns(columns);
+  };
+
+  const addUpdate = (jobId: string, columnId: string, listOrder: number) => {
+    setUpdates((prev) => [...prev, { jobId, columnId, listOrder }]);
   };
 
   const provide = {
