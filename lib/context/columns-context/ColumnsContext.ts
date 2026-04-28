@@ -18,6 +18,7 @@ export type ColumnsContext = {
     index: number
   ) => void;
   handleRenewColumns: (columns: ColumnWithApplication[]) => void;
+  areColumnsUpdated: () => boolean;
 };
 
 export const ColumnsContext = createContext<ColumnsContext | null>(null);

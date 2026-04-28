@@ -1,5 +1,5 @@
 import { Application, ColumnWithApplication, Optional } from '@/lib/types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 
 type Props = {
@@ -17,10 +17,16 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     initialColumns ?? []
   );
-
   const [updates, setUpdates] = useState<ColumnUpdates[]>([]);
 
-  useEffect(() => console.log(updates), [updates]);
+  const originalColumns =
+    initialColumns?.flatMap((col) =>
+      col.applications.map((job) => ({
+        jobId: job.id,
+        column: job.columnId,
+        order: job.listOrder,
+      }))
+    ) ?? [];
 
   const handleAddJob = (job: Application, newColumnId: string) => {
     setColumns((prev) =>
@@ -39,6 +45,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         };
       })
     );
+
+    addUpdate(job.id, newColumnId, 0);
   };
 
   const handleAddJobAtIndex = (
@@ -69,6 +77,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         return col;
       })
     );
+
+    addUpdate(job.id, newColumnId, index);
   };
 
   const handleMoveJob = (
@@ -113,6 +123,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         return col;
       })
     );
+
+    removeUpdate(jobId);
   };
 
   const handleDeleteJob = (jobId: string) => {
@@ -170,6 +182,9 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         return col;
       })
     );
+
+    addUpdate(itemA.id, columnId, b);
+    addUpdate(itemA.id, columnId, a);
   };
 
   const handleRenewColumns = (columns: ColumnWithApplication[]) => {
@@ -177,8 +192,35 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   };
 
   const addUpdate = (jobId: string, columnId: string, listOrder: number) => {
-    setUpdates((prev) => [...prev, { jobId, columnId, listOrder }]);
+    setUpdates((prev) => {
+      const updateIndex = updates.findIndex((item) => item.jobId === jobId);
+
+      if (updateIndex === -1) return [...prev, { jobId, columnId, listOrder }];
+
+      if (originalColumns.length > 0) {
+        const original = originalColumns.find((item) => item.jobId === jobId);
+        if (original) {
+          if (original.column === columnId && original.order === listOrder) {
+            return prev.filter((item) => item.jobId !== jobId);
+          }
+        }
+      }
+
+      return prev.map((item) => {
+        if (item.jobId === jobId) {
+          return { ...item, columnId, listOrder };
+        }
+
+        return item;
+      });
+    });
   };
+
+  const removeUpdate = (jobId: string) => {
+    setUpdates((prev) => prev.filter((item) => item.jobId !== jobId));
+  };
+
+  const areColumnsUpdated = () => updates.length > 0;
 
   const provide = {
     columns,
@@ -189,6 +231,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     handleSwapJobs,
     handleAddJobAtIndex,
     handleRenewColumns,
+    areColumnsUpdated,
   };
 
   return (
