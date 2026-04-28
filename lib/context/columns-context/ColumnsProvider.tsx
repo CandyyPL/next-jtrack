@@ -7,7 +7,7 @@ type Props = {
   initialColumns: ColumnWithApplication[] | null;
 };
 
-type ColumnUpdates = {
+export type ColumnUpdates = {
   jobId: string;
   columnId: string;
   listOrder: number;
@@ -23,12 +23,14 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     initialColumns?.flatMap((col) =>
       col.applications.map((job) => ({
         jobId: job.id,
-        column: job.columnId,
-        order: job.listOrder,
+        columnId: job.columnId,
+        listOrder: job.listOrder,
       }))
     ) ?? [];
 
   const handleAddJob = (job: Application, newColumnId: string) => {
+    addUpdate(job.id, newColumnId, 0);
+
     setColumns((prev) =>
       prev.map((col) => {
         if (col.id !== newColumnId) return col;
@@ -45,8 +47,6 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         };
       })
     );
-
-    addUpdate(job.id, newColumnId, 0);
   };
 
   const handleAddJobAtIndex = (
@@ -57,13 +57,21 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     const newColumn = columns.find((col) => col.id === newColumnId);
     if (!newColumn) return;
 
+    const movedApplications = newColumn.applications
+      .slice(index)
+      .map((job) => ({ ...job, listOrder: job.listOrder + 1 }));
+
+    movedApplications.forEach((job) =>
+      addUpdate(job.id, job.columnId, job.listOrder)
+    );
+
     const newApplications = [
       ...newColumn.applications.slice(0, index),
       { ...job, listOrder: index, columnId: newColumnId },
-      ...newColumn.applications
-        .slice(index)
-        .map((item) => ({ ...item, listOrder: item.listOrder + 1 })),
+      ...movedApplications,
     ];
+
+    addUpdate(job.id, newColumnId, index);
 
     setColumns((prev) =>
       prev.map((col) => {
@@ -77,8 +85,6 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         return col;
       })
     );
-
-    addUpdate(job.id, newColumnId, index);
   };
 
   const handleMoveJob = (
@@ -91,10 +97,10 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
     if (order === -1) order = targetColumn?.applications.length;
 
+    addUpdate(job.id, targetColumnId, order);
     handleDeleteJob(job.id);
     const newJob = { ...job, columnId: targetColumnId, listOrder: order };
     handleAddJob(newJob, targetColumnId);
-    addUpdate(job.id, targetColumnId, order);
   };
 
   const handleUpdateJob = (jobId: string, updates: Optional<Application>) => {
@@ -107,6 +113,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     if (!existingJob) return;
 
     const newApplication: Application = { ...existingJob, ...updates };
+
+    removeUpdate(jobId);
 
     setColumns((prev) =>
       prev.map((col) => {
@@ -123,8 +131,6 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         return col;
       })
     );
-
-    removeUpdate(jobId);
   };
 
   const handleDeleteJob = (jobId: string) => {
@@ -138,11 +144,17 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     );
     if (deleteIndex === -1) return;
 
+    const movedApplications = column.applications
+      .slice(deleteIndex + 1)
+      .map((job) => ({ ...job, listOrder: job.listOrder - 1 }));
+
+    movedApplications.forEach((job) =>
+      addUpdate(job.id, job.columnId, job.listOrder)
+    );
+
     const newApplications = [
       ...column.applications.slice(0, deleteIndex),
-      ...column.applications
-        .slice(deleteIndex + 1)
-        .map((job) => ({ ...job, listOrder: job.listOrder - 1 })),
+      ...movedApplications,
     ];
 
     setColumns((prev) =>
@@ -173,6 +185,9 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     newApplications[a] = itemB;
     newApplications[b] = itemA;
 
+    addUpdate(itemA.id, columnId, b);
+    addUpdate(itemB.id, columnId, a);
+
     setColumns((prev) =>
       prev.map((col) => {
         if (col.id === columnId) {
@@ -182,9 +197,6 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
         return col;
       })
     );
-
-    addUpdate(itemA.id, columnId, b);
-    addUpdate(itemA.id, columnId, a);
   };
 
   const handleRenewColumns = (columns: ColumnWithApplication[]) => {
@@ -197,13 +209,13 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
       if (updateIndex === -1) return [...prev, { jobId, columnId, listOrder }];
 
-      if (originalColumns.length > 0) {
-        const original = originalColumns.find((item) => item.jobId === jobId);
-        if (original) {
-          if (original.column === columnId && original.order === listOrder) {
-            return prev.filter((item) => item.jobId !== jobId);
-          }
-        }
+      const original = originalColumns.find((item) => item.jobId === jobId);
+      if (
+        original &&
+        original.columnId === columnId &&
+        original.listOrder === listOrder
+      ) {
+        return prev.filter((item) => item.jobId !== jobId);
       }
 
       return prev.map((item) => {
@@ -224,6 +236,10 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
   const isApplicationUpdated = (jobId: string) => {
     return updates.some((item) => item.jobId === jobId);
+  };
+
+  const getOriginal = (jobId: string) => {
+    return originalColumns.find((job) => job.jobId === jobId) ?? null;
   };
 
   const provide = {
