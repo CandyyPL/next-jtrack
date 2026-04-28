@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Field, FieldLabel, FieldSet } from '@/components/shadcn/field';
+import {
+  Field,
+  FieldError,
+  FieldLabel,
+  FieldSet,
+} from '@/components/shadcn/field';
 import { Controller, useForm } from 'react-hook-form';
 import { Input } from '@/components/shadcn/input';
 import { Textarea } from '@/components/shadcn/textarea';
@@ -66,6 +71,9 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                 />
+                {fieldState.error && (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                )}
               </Field>
             )}
           />
@@ -80,6 +88,9 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                 />
+                {fieldState.error && (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                )}
               </Field>
             )}
           />
@@ -128,6 +139,9 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
                   aria-invalid={fieldState.invalid}
                   placeholder='https://...'
                 />
+                {fieldState.error && (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                )}
               </Field>
             )}
           />

@@ -62,13 +62,13 @@ export type SortableProps = {
 };
 
 export const JobFormSchema = z.object({
-  company: z.string().nonempty(),
-  position: z.string().nonempty(),
+  company: z.string().min(3, { error: 'Enter at least 3 characters' }),
+  position: z.string().min(3, { error: 'Enter at least 3 characters' }),
   location: z.string(),
   salary: z.string(),
-  url: z.httpUrl().or(z.literal('')),
+  url: z.httpUrl({ error: 'Enter a valid URL' }).or(z.literal('')),
   tags: z.string(),
-  desc: z.string().max(200),
+  desc: z.string().max(200, { error: 'Enter no more than 200 characters' }),
 });
 
 export type JobFormDataType = z.infer<typeof JobFormSchema>;
