@@ -7,18 +7,29 @@ import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/shadcn/button';
 import { CircleCheckBig, Save } from 'lucide-react';
+import { bulkUpdateApplications } from '@/lib/actions/bulk-update';
+import { MoonLoader } from 'react-spinners';
 
 type Props = {
   boardData: FullBoardData;
 };
 
 function Dashboard({ boardData }: Props) {
-  const { areColumnsUpdated } = useColumns();
+  const { updates, setUpdates, areColumnsUpdated } = useColumns();
   const [needUpdate, setNeedUpdate] = useState<boolean>();
+
+  const [saveLoading, setSaveLoading] = useState(false);
 
   useEffect(() => {
     setNeedUpdate(areColumnsUpdated());
   }, [areColumnsUpdated]);
+
+  const handleSaveChanges = async () => {
+    setSaveLoading(true);
+    await bulkUpdateApplications(updates);
+    setUpdates([]);
+    setSaveLoading(false);
+  };
 
   return (
     <main className='min-h-[calc(100vh-4rem-1px)]'>
@@ -29,9 +40,18 @@ function Dashboard({ boardData }: Props) {
             <p className='text-gray-600'>Track your job applications.</p>
           </div>
           {needUpdate ? (
-            <Button className='h-12 px-4 font-semibold'>
+            <Button
+              className='h-12 cursor-pointer px-4 font-semibold'
+              onClick={() => handleSaveChanges()}
+              disabled={saveLoading}>
               <Save />
               Save Changes
+              {saveLoading && (
+                <MoonLoader
+                  size={14}
+                  color='black'
+                />
+              )}
             </Button>
           ) : (
             <span className='flex h-12 items-center gap-2 rounded-md bg-green-100 px-4 py-2 font-semibold text-green-600'>

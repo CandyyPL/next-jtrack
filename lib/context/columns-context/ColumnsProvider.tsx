@@ -1,6 +1,7 @@
 import { Application, ColumnWithApplication, Optional } from '@/lib/types';
 import React, { useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
+import { bulkUpdateApplications } from '@/lib/actions/bulk-update';
 
 type Props = {
   children: React.ReactNode;
@@ -240,12 +241,9 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     return updates.some((item) => item.jobId === jobId);
   };
 
-  const getOriginal = (jobId: string) => {
-    return originalColumns.find((job) => job.jobId === jobId) ?? null;
-  };
-
   const provide = {
     columns,
+    updates,
     handleAddJob,
     handleMoveJob,
     handleUpdateJob,
@@ -255,6 +253,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     handleRenewColumns,
     areColumnsUpdated,
     isApplicationUpdated,
+    setUpdates,
   };
 
   return (
