@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { Application, ColumnWithApplication, Optional } from '@/lib/types';
 
 export type ColumnsContext = {
