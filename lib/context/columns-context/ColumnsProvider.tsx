@@ -1,4 +1,4 @@
-import { Application, ColumnWithApplication } from '@/lib/types';
+import { Application, ColumnWithApplication, Optional } from '@/lib/types';
 import React, { useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 
@@ -83,6 +83,34 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     handleAddJob(newJob, targetColumnId);
   };
 
+  const handleUpdateJob = (jobId: string, updates: Optional<Application>) => {
+    const column = columns.find((col) =>
+      col.applications.some((job) => job.id === jobId)
+    );
+    if (!column) return;
+
+    const existingJob = column.applications.find((job) => job.id === jobId);
+    if (!existingJob) return;
+
+    const newApplication: Application = { ...existingJob, ...updates };
+
+    setColumns((prev) =>
+      prev.map((col) => {
+        if (col.id === existingJob?.columnId) {
+          return {
+            ...col,
+            applications: [
+              ...col.applications.filter((job) => job.id !== existingJob.id),
+              newApplication,
+            ],
+          };
+        }
+
+        return col;
+      })
+    );
+  };
+
   const handleDeleteJob = (jobId: string) => {
     const column = columns.find((col) =>
       col.applications.find((job) => job.id === jobId)
@@ -148,6 +176,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     columns,
     handleAddJob,
     handleMoveJob,
+    handleUpdateJob,
     handleDeleteJob,
     handleSwapJobs,
     handleAddJobAtIndex,

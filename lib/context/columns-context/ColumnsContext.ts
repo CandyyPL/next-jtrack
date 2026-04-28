@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { Application, ColumnWithApplication } from '@/lib/types';
+import { Application, ColumnWithApplication, Optional } from '@/lib/types';
 
 export type ColumnsContext = {
   columns: ColumnWithApplication[];
@@ -9,6 +9,7 @@ export type ColumnsContext = {
     targetColumnId: string,
     order: number
   ) => void;
+  handleUpdateJob: (jobId: string, updates: Optional<Application>) => void;
   handleDeleteJob: (jobId: string) => void;
   handleSwapJobs: (columnId: string, idx1: number, idx2: number) => void;
   handleAddJobAtIndex: (
