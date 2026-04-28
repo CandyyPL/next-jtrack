@@ -13,12 +13,11 @@ import EditJobForm from '@/components/forms/edit-job-form';
 
 type Props = {
   job: Application;
-  columnId: string;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function EditJobDialog({ job, columnId, open, setOpen }: Props) {
+export default function EditJobDialog({ job, open, setOpen }: Props) {
   return (
     <Dialog
       open={open}
@@ -33,7 +32,6 @@ export default function EditJobDialog({ job, columnId, open, setOpen }: Props) {
         <EditJobForm
           job={job}
           closeDialog={() => setOpen(false)}
-          columnId={columnId}
         />
       </DialogContent>
     </Dialog>

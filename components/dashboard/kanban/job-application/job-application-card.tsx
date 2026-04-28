@@ -133,7 +133,6 @@ export default function JobApplicationCard({
               </DropdownMenu>
               <EditJobDialog
                 job={job}
-                columnId={job.columnId}
                 open={editDialogOpen}
                 setOpen={setEditDialogOpen}
               />

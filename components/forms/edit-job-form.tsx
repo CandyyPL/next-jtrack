@@ -8,10 +8,9 @@ import { useColumns } from '@/lib/hooks/useColumns';
 type Props = {
   job: Application;
   closeDialog: () => void;
-  columnId: string;
 };
 
-export default function EditJobForm({ job, closeDialog, columnId }: Props) {
+export default function EditJobForm({ job, closeDialog }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
