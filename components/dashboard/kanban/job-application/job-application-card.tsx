@@ -11,6 +11,7 @@ import { Button } from '@/components/shadcn/button';
 import { useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { useColumns } from '@/lib/hooks/useColumns';
+import { deleteApplication } from '@/lib/actions/delete-application';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -33,9 +34,10 @@ export default function JobApplicationCard({
     transition,
   };
 
-  const deleteJob = (jobId: string) => {
+  const deleteJob = async (jobId: string) => {
     setDisabled(true);
     handleDeleteJob(jobId);
+    await deleteApplication(jobId);
   };
 
   return (
