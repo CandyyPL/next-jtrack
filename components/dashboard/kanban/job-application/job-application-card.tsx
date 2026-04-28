@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { useColumns } from '@/lib/hooks/useColumns';
 import { deleteApplication } from '@/lib/actions/delete-application';
+import EditJobDialog from '@/components/dialogs/edit-job-dialog';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -26,6 +27,7 @@ export default function JobApplicationCard({
 }: JobApplicationCardProps) {
   const { handleMoveJob, handleDeleteJob } = useColumns();
   const [disabled, setDisabled] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const { attributes, listeners, setNodeRef, transform, transition } = props;
 
@@ -106,7 +108,9 @@ export default function JobApplicationCard({
                 <DropdownMenuContent
                   align='end'
                   className='w-fit'>
-                  <DropdownMenuItem className='cursor-pointer'>
+                  <DropdownMenuItem
+                    className='cursor-pointer'
+                    onClick={() => setEditDialogOpen(true)}>
                     <Edit2 className='mr-2 size-4' /> Edit
                   </DropdownMenuItem>
                   {columns
@@ -127,6 +131,12 @@ export default function JobApplicationCard({
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              <EditJobDialog
+                job={job}
+                columnId={job.columnId}
+                open={editDialogOpen}
+                setOpen={setEditDialogOpen}
+              />
             </div>
           </div>
         </CardContent>
