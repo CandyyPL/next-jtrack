@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { JobFormSchema, JobFormDataType, Application } from '@/lib/types';
 import JobForm from '@/components/forms/job-form';
 import { useColumns } from '@/lib/hooks/useColumns';
+import { updateApplication } from '@/lib/actions/update-application';
 
 type Props = {
   job: Application;
@@ -32,6 +33,7 @@ export default function EditJobForm({ job, closeDialog }: Props) {
   const onSubmit = async (data: JobFormDataType) => {
     setLoading(true);
     handleUpdateJob(job.id, data);
+    await updateApplication(job.id, data);
     setLoading(false);
     closeDialog();
   };

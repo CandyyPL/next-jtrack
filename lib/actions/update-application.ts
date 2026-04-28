@@ -3,9 +3,10 @@
 import { Application, Optional } from '@/lib/types';
 import { getSession } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
+import { revalidatePath } from 'next/cache';
 
 export async function updateApplication(
-  id: string,
+  applicationId: string,
   updates: Optional<Application>
 ) {
   const session = await getSession();
@@ -14,30 +15,14 @@ export async function updateApplication(
     throw new Error('Unauthorized');
   }
 
-  const { data: rawData, error } = await supabase
+  const { id, columnId, listOrder, ...other } = updates;
+
+  const newApplication = { columnId, listOrder, ...other };
+
+  await supabase
     .from('application')
-    .select()
-    .eq('id', id)
-    .single();
+    .update(newApplication)
+    .eq('id', applicationId);
 
-  if (error || !rawData) {
-    throw new Error(
-      error?.details ||
-        'An error occurred during recalling current application.'
-    );
-  }
-
-  const application = rawData as Application;
-
-  const { columnId, listOrder, ...other } = updates;
-
-  const otherUpdates: Optional<Application> = other;
-
-  const currentColumnId = application.columnId;
-  const newColumnId = columnId;
-
-  const isMovingToDifferentColumn =
-    newColumnId && newColumnId !== currentColumnId;
-
-  // TODO: work in progress
+  revalidatePath('/dashboard');
 }
