@@ -1,5 +1,5 @@
 import { Application, ColumnWithApplication, Optional } from '@/lib/types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 
 type Props = {
@@ -222,6 +222,10 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
   const areColumnsUpdated = () => updates.length > 0;
 
+  const isApplicationUpdated = (jobId: string) => {
+    return updates.some((item) => item.jobId === jobId);
+  };
+
   const provide = {
     columns,
     handleAddJob,
@@ -232,6 +236,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     handleAddJobAtIndex,
     handleRenewColumns,
     areColumnsUpdated,
+    isApplicationUpdated,
   };
 
   return (

@@ -19,6 +19,7 @@ export type ColumnsContext = {
   ) => void;
   handleRenewColumns: (columns: ColumnWithApplication[]) => void;
   areColumnsUpdated: () => boolean;
+  isApplicationUpdated: (jobId: string) => boolean;
 };
 
 export const ColumnsContext = createContext<ColumnsContext | null>(null);

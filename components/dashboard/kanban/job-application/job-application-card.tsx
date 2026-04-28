@@ -1,6 +1,13 @@
 import { Application, ColumnWithApplication, SortableProps } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { Dot, Edit2, ExternalLink, MoreVertical, Trash2 } from 'lucide-react';
+import {
+  Dot,
+  Edit2,
+  ExternalLink,
+  MoreVertical,
+  Trash2,
+  TriangleAlert,
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +20,11 @@ import { CSS } from '@dnd-kit/utilities';
 import { useColumns } from '@/lib/hooks/useColumns';
 import { deleteApplication } from '@/lib/actions/delete-application';
 import EditJobDialog from '@/components/dialogs/edit-job-dialog';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -25,7 +37,7 @@ export default function JobApplicationCard({
   columns,
   props,
 }: JobApplicationCardProps) {
-  const { handleMoveJob, handleDeleteJob } = useColumns();
+  const { handleMoveJob, handleDeleteJob, isApplicationUpdated } = useColumns();
   const [disabled, setDisabled] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
@@ -49,16 +61,12 @@ export default function JobApplicationCard({
         {...attributes}
         style={style}
         className={`cursor-grab shadow-sm transition-shadow hover:shadow-lg ${disabled && 'pointer-events-none bg-gray-100'}`}>
-        <CardContent className='px-4'>
-          <div className='flex items-start justify-between gap-2'>
+        <CardContent className='p-0'>
+          <div className='flex items-stretch px-4'>
             <div
               {...listeners}
               className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold'>{job.position}</h3>
-              <div className='flex flex-col'>
-                <span>Column: {job.columnId.slice(0, 7)}</span>
-                <span>Order: {job.listOrder}</span>
-              </div>
               <div className='flex items-center'>
                 <p className='text-muted-foreground text-xs'>{job.company}</p>
                 {job.salary && (
@@ -95,7 +103,7 @@ export default function JobApplicationCard({
                 </a>
               )}
             </div>
-            <div className='flex gap-1'>
+            <div className='flex flex-col items-center justify-between'>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -131,6 +139,22 @@ export default function JobApplicationCard({
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+              {isApplicationUpdated(job.id) && (
+                <HoverCard
+                  openDelay={10}
+                  closeDelay={100}>
+                  <HoverCardTrigger
+                    asChild
+                    className='cursor-default'>
+                    <TriangleAlert className='text-red-400' />
+                  </HoverCardTrigger>
+                  <HoverCardContent className='flex w-56 justify-center bg-red-50'>
+                    <p className='text-sm font-medium'>
+                      Remember to save changes!
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              )}
               <EditJobDialog
                 job={job}
                 open={editDialogOpen}
