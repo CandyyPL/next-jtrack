@@ -13,6 +13,8 @@ export type ColumnUpdates = {
   listOrder: number;
 };
 
+// TODO: refactor updates logic to apply updates and further update ui (alert mark) AFTER dragging or during dragging but in acceptable moments
+
 export default function ColumnsProvider({ children, initialColumns }: Props) {
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     initialColumns ?? []
