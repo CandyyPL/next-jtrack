@@ -8,9 +8,9 @@ export default async function Navbar() {
       <div className='container mx-auto flex h-16 items-center justify-between px-4'>
         <Link
           href='/'
-          className='flex cursor-pointer gap-2'>
-          <Briefcase className='size-10' />
-          <h1 className='text-3xl font-bold'>
+          className='flex cursor-pointer items-center gap-2'>
+          <Briefcase className='size-8 md:size-10' />
+          <h1 className='text-2xl font-bold md:text-3xl'>
             <span className='text-primary'>J</span>Track
           </h1>
         </Link>
