@@ -114,22 +114,24 @@ export default function JobForm({
                     placeholder='e.g. $100k - $150k'
                     disabled={!isAuthenticated()}
                   />
-                  <InputGroupAddon align='inline-end'>
-                    <HoverCard
-                      openDelay={10}
-                      closeDelay={100}>
-                      <HoverCardTrigger
-                        asChild
-                        className='cursor-default'>
-                        <Lock />
-                      </HoverCardTrigger>
-                      <HoverCardContent className='flex w-48 justify-center'>
-                        <p className='text-sm font-medium'>
-                          Create account to unlock!
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </InputGroupAddon>
+                  {!isAuthenticated() && (
+                    <InputGroupAddon align='inline-end'>
+                      <HoverCard
+                        openDelay={10}
+                        closeDelay={100}>
+                        <HoverCardTrigger
+                          asChild
+                          className='cursor-default'>
+                          <Lock />
+                        </HoverCardTrigger>
+                        <HoverCardContent className='flex w-48 justify-center'>
+                          <p className='text-sm font-medium'>
+                            Create account to unlock!
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </InputGroupAddon>
+                  )}
                 </InputGroup>
               </Field>
             )}
@@ -150,22 +152,24 @@ export default function JobForm({
                     placeholder='https://...'
                     disabled={!isAuthenticated()}
                   />
-                  <InputGroupAddon align='inline-end'>
-                    <HoverCard
-                      openDelay={10}
-                      closeDelay={100}>
-                      <HoverCardTrigger
-                        asChild
-                        className='cursor-default'>
-                        <Lock />
-                      </HoverCardTrigger>
-                      <HoverCardContent className='flex w-48 justify-center'>
-                        <p className='text-sm font-medium'>
-                          Create account to unlock!
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </InputGroupAddon>
+                  {!isAuthenticated() && (
+                    <InputGroupAddon align='inline-end'>
+                      <HoverCard
+                        openDelay={10}
+                        closeDelay={100}>
+                        <HoverCardTrigger
+                          asChild
+                          className='cursor-default'>
+                          <Lock />
+                        </HoverCardTrigger>
+                        <HoverCardContent className='flex w-48 justify-center'>
+                          <p className='text-sm font-medium'>
+                            Create account to unlock!
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </InputGroupAddon>
+                  )}
                 </InputGroup>
                 {fieldState.error && (
                   <FieldError>{fieldState.error.message}</FieldError>
@@ -187,22 +191,24 @@ export default function JobForm({
                     placeholder='Web Dev, Embedded, Security, etc.'
                     disabled={!isAuthenticated()}
                   />
-                  <InputGroupAddon align='inline-end'>
-                    <HoverCard
-                      openDelay={10}
-                      closeDelay={100}>
-                      <HoverCardTrigger
-                        asChild
-                        className='cursor-default'>
-                        <Lock />
-                      </HoverCardTrigger>
-                      <HoverCardContent className='flex w-48 justify-center'>
-                        <p className='text-sm font-medium'>
-                          Create account to unlock!
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </InputGroupAddon>
+                  {!isAuthenticated() && (
+                    <InputGroupAddon align='inline-end'>
+                      <HoverCard
+                        openDelay={10}
+                        closeDelay={100}>
+                        <HoverCardTrigger
+                          asChild
+                          className='cursor-default'>
+                          <Lock />
+                        </HoverCardTrigger>
+                        <HoverCardContent className='flex w-48 justify-center'>
+                          <p className='text-sm font-medium'>
+                            Create account to unlock!
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </InputGroupAddon>
+                  )}
                 </InputGroup>
               </Field>
             )}
@@ -223,22 +229,24 @@ export default function JobForm({
                     maxLength={200}
                     disabled={!isAuthenticated()}
                   />
-                  <InputGroupAddon align='inline-end'>
-                    <HoverCard
-                      openDelay={10}
-                      closeDelay={100}>
-                      <HoverCardTrigger
-                        asChild
-                        className='cursor-default'>
-                        <Lock />
-                      </HoverCardTrigger>
-                      <HoverCardContent className='flex w-48 justify-center'>
-                        <p className='text-sm font-medium'>
-                          Create account to unlock!
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </InputGroupAddon>
+                  {!isAuthenticated() && (
+                    <InputGroupAddon align='inline-end'>
+                      <HoverCard
+                        openDelay={10}
+                        closeDelay={100}>
+                        <HoverCardTrigger
+                          asChild
+                          className='cursor-default'>
+                          <Lock />
+                        </HoverCardTrigger>
+                        <HoverCardContent className='flex w-48 justify-center'>
+                          <p className='text-sm font-medium'>
+                            Create account to unlock!
+                          </p>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </InputGroupAddon>
+                  )}
                 </InputGroup>
               </Field>
             )}
