@@ -6,7 +6,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { CircleQuestionMark } from 'lucide-react';
+import { AlertTriangle, CircleQuestionMark } from 'lucide-react';
 import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
 import { FullBoardData } from '@/lib/types';
 import { DEMO_BOARD } from '@/lib/demo-boards';
@@ -43,6 +43,10 @@ function Demo({ boardData }: Props) {
               Try this Job Application tracking Kanban Board.
             </p>
           </div>
+          <span className='flex h-12 items-center gap-2 rounded-md bg-red-100 px-4 py-2 font-medium text-red-600'>
+            <AlertTriangle /> Data in Demo Board cannot be saved. Create a free
+            account to save your job applications.
+          </span>
         </header>
         <KanbanBoard boardData={boardData} />
       </div>
