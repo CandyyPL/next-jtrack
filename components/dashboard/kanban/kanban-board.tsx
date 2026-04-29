@@ -208,13 +208,9 @@ export default function KanbanBoard({ boardData }: Props) {
           onDragCancel={handleDragCancel}>
           <div className='flex justify-between gap-4'>
             {columns.map((col) => {
-              let config;
-
-              if (isAuthenticated()) {
-                config = columnConfig[col.listOrder];
-              } else {
-                config = demoColumnConfig[col.listOrder];
-              }
+              const config = isAuthenticated()
+                ? columnConfig[col.listOrder]
+                : demoColumnConfig[col.listOrder];
 
               return (
                 <DroppableColumn
