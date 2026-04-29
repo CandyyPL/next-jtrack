@@ -18,7 +18,7 @@ export default function HeroImageGallery() {
     <section className='border-t bg-white py-16'>
       <div className='container mx-auto px-4'>
         <div className='mx-auto max-w-6xl'>
-          <div className='mb-8 flex justify-center gap-2'>
+          <div className='mb-8 flex flex-col justify-center gap-2 md:flex-row'>
             <Button
               onClick={() => setActiveTab(ImageTab.ORGANIZE)}
               className={cn(

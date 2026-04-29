@@ -9,18 +9,16 @@ export default function Home() {
       <main className='flex-1'>
         <section className='container mx-auto px-4 py-32'>
           <div className='mx-auto max-w-4xl text-center'>
-            <h1 className='mb-6 text-6xl font-bold text-black'>
+            <h1 className='mb-6 text-4xl font-bold text-black md:text-5xl lg:text-6xl'>
               A better way to track your job applications.
             </h1>
-            <p className='text-muted-foreground mb-10 text-xl'>
+            <p className='text-muted-foreground mb-10 text-base md:text-lg lg:text-xl'>
               Capture, organize and manage your job search in one place.
             </p>
             <div className='flex flex-col items-center gap-4'>
-              <div className='flex gap-4'>
-                <Suspense>
-                  <MainPageStartButtons />
-                </Suspense>
-              </div>
+              <Suspense>
+                <MainPageStartButtons />
+              </Suspense>
               <p className='text-muted-foreground text-sm'>
                 Free forever. No credit card required.
               </p>
@@ -32,10 +30,10 @@ export default function Home() {
           <div className='container mx-auto px-4'>
             <div className='grid gap-12 md:grid-cols-3'>
               <div className='flex flex-col'>
-                <div className='bg-primary/10 mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg'>
-                  <Briefcase className='text-primary size-6' />
-                </div>
-                <h3 className='mb-3 text-2xl font-semibold text-black'>
+                <h3 className='mb-4 flex items-center gap-2 text-2xl font-semibold text-black'>
+                  <div className='bg-primary/10 inline-flex h-12 w-12 items-center justify-center rounded-lg'>
+                    <Briefcase className='text-primary size-6' />
+                  </div>
                   Organize Applications
                 </h3>
                 <p className='text-muted-foreground'>
@@ -44,10 +42,10 @@ export default function Home() {
                 </p>
               </div>
               <div className='flex flex-col'>
-                <div className='bg-primary/10 mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg'>
-                  <TrendingUp className='text-primary size-6' />
-                </div>
-                <h3 className='mb-3 text-2xl font-semibold text-black'>
+                <h3 className='mb-4 flex items-center gap-2 text-2xl font-semibold text-black'>
+                  <div className='bg-primary/10 inline-flex h-12 w-12 items-center justify-center rounded-lg'>
+                    <TrendingUp className='text-primary size-6' />
+                  </div>
                   Track Progress
                 </h3>
                 <p className='text-muted-foreground'>
@@ -56,10 +54,10 @@ export default function Home() {
                 </p>
               </div>
               <div className='flex flex-col'>
-                <div className='bg-primary/10 mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg'>
-                  <CheckCircle2 className='text-primary size-6' />
-                </div>
-                <h3 className='mb-3 text-2xl font-semibold text-black'>
+                <h3 className='mb-4 flex items-center gap-2 text-2xl font-semibold text-black'>
+                  <div className='bg-primary/10 inline-flex h-12 w-12 items-center justify-center rounded-lg'>
+                    <CheckCircle2 className='text-primary size-6' />
+                  </div>
                   Stay Organized
                 </h3>
                 <p className='text-muted-foreground'>
