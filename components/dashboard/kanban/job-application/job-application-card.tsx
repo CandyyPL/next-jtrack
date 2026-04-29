@@ -25,6 +25,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import DeleteJobDialog from '@/components/dialogs/delete-job-dialog';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -39,7 +40,9 @@ export default function JobApplicationCard({
 }: JobApplicationCardProps) {
   const { handleMoveJob, handleDeleteJob, isApplicationUpdated } = useColumns();
   const [disabled, setDisabled] = useState(false);
-  const [editDialogOpen, setEditDialogOpen] = useState(false);
+
+  const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
 
   const { attributes, listeners, setNodeRef, transform, transition } = props;
 
@@ -48,10 +51,11 @@ export default function JobApplicationCard({
     transition,
   };
 
-  const deleteJob = async (jobId: string) => {
+  const deleteJob = async () => {
     setDisabled(true);
-    handleDeleteJob(jobId);
-    await deleteApplication(jobId);
+    handleDeleteJob(job.id);
+    await deleteApplication(job.id);
+    setDeleteDialogOpen(false);
   };
 
   return (
@@ -133,9 +137,8 @@ export default function JobApplicationCard({
                     ))}
                   <DropdownMenuItem
                     className='text-destructive cursor-pointer'
-                    onClick={() => deleteJob(job.id)}>
+                    onClick={() => setDeleteDialogOpen(true)}>
                     <Trash2 className='mr-2 size-4' /> Delete
-                    {/* TODO: add delete confirm dialog */}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -157,6 +160,11 @@ export default function JobApplicationCard({
                 job={job}
                 open={editDialogOpen}
                 setOpen={setEditDialogOpen}
+              />
+              <DeleteJobDialog
+                open={deleteDialogOpen}
+                setOpen={setDeleteDialogOpen}
+                confirmDelete={deleteJob}
               />
             </div>
           </div>
