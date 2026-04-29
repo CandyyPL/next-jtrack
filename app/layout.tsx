@@ -37,7 +37,7 @@ export default function RootLayout({
         geist.variable,
         lusitana.variable
       )}>
-      <body className='flex min-h-full flex-col'>
+      <body className='content-height flex flex-col'>
         <Navbar />
         {children}
         <footer className='flex h-30 flex-col items-center justify-center bg-zinc-100 shadow-lg inset-shadow-sm'>

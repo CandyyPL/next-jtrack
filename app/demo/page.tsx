@@ -17,7 +17,7 @@ type Props = {
 
 function Demo({ boardData }: Props) {
   return (
-    <main className='min-h-[calc(100vh-4rem-1px)]'>
+    <main className='content-height'>
       <div className='container mx-auto p-6'>
         <header className='mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
           <div className='space-y-2'>
