@@ -15,7 +15,7 @@ export default function EditJobForm({ job, closeDialog }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { handleUpdateJob } = useColumns();
+  const { isAuthenticated, handleUpdateJob } = useColumns();
 
   const form = useForm({
     resolver: zodResolver(JobFormSchema),
@@ -33,7 +33,11 @@ export default function EditJobForm({ job, closeDialog }: Props) {
   const onSubmit = async (data: JobFormDataType) => {
     setLoading(true);
     handleUpdateJob(job.id, data);
-    await updateApplication(job.id, data);
+
+    if (isAuthenticated()) {
+      await updateApplication(job.id, data);
+    }
+
     setLoading(false);
     closeDialog();
   };

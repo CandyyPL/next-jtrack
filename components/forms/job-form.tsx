@@ -11,6 +11,20 @@ import { DialogClose, DialogFooter } from '@/components/shadcn/dialog';
 import { Button } from '@/components/shadcn/button';
 import { MoonLoader } from 'react-spinners';
 import { JobFormDataType } from '@/lib/types';
+import { useColumns } from '@/lib/hooks/useColumns';
+import { Lock, TriangleAlert } from 'lucide-react';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from '@/components/ui/input-group';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
 
 type Props = {
   form: UseFormReturn<JobFormDataType>;
@@ -27,6 +41,8 @@ export default function JobForm({
   error,
   submitButtonText,
 }: Props) {
+  const { isAuthenticated } = useColumns();
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       {error && (
@@ -92,12 +108,31 @@ export default function JobForm({
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Salary</FieldLabel>
-                <Input
-                  {...field}
-                  id={field.name}
-                  aria-invalid={fieldState.invalid}
-                  placeholder='e.g. $100k - $150k'
-                />
+                <InputGroup>
+                  <InputGroupInput
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    placeholder='e.g. $100k - $150k'
+                    disabled={!isAuthenticated()}
+                  />
+                  <InputGroupAddon align='inline-end'>
+                    <HoverCard
+                      openDelay={10}
+                      closeDelay={100}>
+                      <HoverCardTrigger
+                        asChild
+                        className='cursor-default'>
+                        <Lock />
+                      </HoverCardTrigger>
+                      <HoverCardContent className='flex w-48 justify-center'>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </InputGroupAddon>
+                </InputGroup>
               </Field>
             )}
           />
@@ -109,12 +144,31 @@ export default function JobForm({
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Offer Website</FieldLabel>
-                <Input
-                  {...field}
-                  id={field.name}
-                  aria-invalid={fieldState.invalid}
-                  placeholder='https://...'
-                />
+                <InputGroup>
+                  <InputGroupInput
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    placeholder='https://...'
+                    disabled={!isAuthenticated()}
+                  />
+                  <InputGroupAddon align='inline-end'>
+                    <HoverCard
+                      openDelay={10}
+                      closeDelay={100}>
+                      <HoverCardTrigger
+                        asChild
+                        className='cursor-default'>
+                        <Lock />
+                      </HoverCardTrigger>
+                      <HoverCardContent className='flex w-48 justify-center'>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </InputGroupAddon>
+                </InputGroup>
                 {fieldState.error && (
                   <FieldError>{fieldState.error.message}</FieldError>
                 )}
@@ -127,12 +181,31 @@ export default function JobForm({
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Tags</FieldLabel>
-                <Input
-                  {...field}
-                  id={field.name}
-                  aria-invalid={fieldState.invalid}
-                  placeholder='Web Dev, Embedded, Security, etc.'
-                />
+                <InputGroup>
+                  <InputGroupInput
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    placeholder='Web Dev, Embedded, Security, etc.'
+                    disabled={!isAuthenticated()}
+                  />
+                  <InputGroupAddon align='inline-end'>
+                    <HoverCard
+                      openDelay={10}
+                      closeDelay={100}>
+                      <HoverCardTrigger
+                        asChild
+                        className='cursor-default'>
+                        <Lock />
+                      </HoverCardTrigger>
+                      <HoverCardContent className='flex w-48 justify-center'>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </InputGroupAddon>
+                </InputGroup>
               </Field>
             )}
           />
@@ -142,14 +215,33 @@ export default function JobForm({
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Description</FieldLabel>
-                <Textarea
-                  {...field}
-                  id={field.name}
-                  aria-invalid={fieldState.invalid}
-                  placeholder='Brief description of the job...'
-                  className='h-26 resize-none'
-                  maxLength={200}
-                />
+                <InputGroup>
+                  <InputGroupTextarea
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    placeholder='Brief description of the job...'
+                    className='h-26 resize-none'
+                    maxLength={200}
+                    disabled={!isAuthenticated()}
+                  />
+                  <InputGroupAddon align='inline-end'>
+                    <HoverCard
+                      openDelay={10}
+                      closeDelay={100}>
+                      <HoverCardTrigger
+                        asChild
+                        className='cursor-default'>
+                        <Lock />
+                      </HoverCardTrigger>
+                      <HoverCardContent className='flex w-48 justify-center'>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </InputGroupAddon>
+                </InputGroup>
               </Field>
             )}
           />

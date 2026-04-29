@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { JobFormSchema, JobFormDataType } from '@/lib/types';
 import { createApplication } from '@/lib/actions/create-application';
 import JobForm from '@/components/forms/job-form';
+import { useColumns } from '@/lib/hooks/useColumns';
 
 type Props = {
   closeDialog: () => void;
@@ -13,6 +14,7 @@ type Props = {
 export default function CreateJobForm({ closeDialog, columnId }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { isAuthenticated, handleAddJob } = useColumns();
 
   const form = useForm({
     resolver: zodResolver(JobFormSchema),
@@ -29,12 +31,22 @@ export default function CreateJobForm({ closeDialog, columnId }: Props) {
 
   const onSubmit = async (data: JobFormDataType) => {
     setLoading(true);
-    const error = await createApplication(data, columnId);
+    if (!isAuthenticated()) {
+      const job = {
+        ...data,
+        id: Date.now().toString(),
+        columnId,
+        listOrder: 0,
+      };
+      handleAddJob(job, columnId);
+    } else {
+      const error = await createApplication(data, columnId);
 
-    if (error) {
-      setError(error.details);
-      setLoading(false);
-      return;
+      if (error) {
+        setError(error.details);
+        setLoading(false);
+        return;
+      }
     }
 
     setLoading(false);
