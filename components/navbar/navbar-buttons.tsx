@@ -70,11 +70,11 @@ export default function NavbarButtons() {
                 className='cursor-pointer'>
                 Logout
               </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => handleDelete()}
-                className='cursor-pointer text-red-500'>
-                Delete Account
-              </DropdownMenuItem>
+              {/*<DropdownMenuItem*/}
+              {/*  onClick={() => handleDelete()}*/}
+              {/*  className='cursor-pointer text-red-500'>*/}
+              {/*  Delete Account*/}
+              {/*</DropdownMenuItem>*/}
             </DropdownMenuContent>
           </DropdownMenu>
         </>
