@@ -27,8 +27,8 @@ export default function JobApplicationCardSkeleton({
         ref={setNodeRef}
         style={style}
         className='cursor-grab border-2 border-dashed shadow-sm ring-0 transition-shadow'>
-        <CardContent className='px-4 opacity-75'>
-          <div className='flex items-start justify-between gap-2'>
+        <CardContent className='p-0 opacity-75'>
+          <div className='flex items-stretch px-4'>
             <div className='min-w-0 flex-1'>
               <h3 className='mb-1 text-sm font-semibold text-transparent'>
                 {job.position}
@@ -36,10 +36,7 @@ export default function JobApplicationCardSkeleton({
               <div className='flex items-center'>
                 <p className='text-xs text-transparent'>{job.company}</p>
                 {job.salary && (
-                  <>
-                    <Dot className='text-transparent' />
-                    <p className='text-base text-transparent'>{job.salary}</p>
-                  </>
+                  <p className='text-base text-transparent'>{job.salary}</p>
                 )}
               </div>
               {job.desc && (

@@ -16,13 +16,19 @@ export default function JobApplicationCardOverlay({
   return (
     <>
       <Card className='group cursor-grabbing shadow-sm'>
-        <CardContent className='px-4'>
+        <CardContent className='max-w-5/6 px-4'>
           <div className='min-w-0 flex-1'>
             <h3 className='mb-1 text-sm font-semibold'>{job?.position}</h3>
             <div className='flex items-center'>
               <p className='text-muted-foreground text-xs'>{job?.company}</p>
-              <Dot className='text-muted-foreground' />
-              <p className='text-muted-foreground text-base'>{job?.salary}</p>
+              {job?.salary && (
+                <>
+                  <Dot className='text-muted-foreground' />
+                  <p className='text-muted-foreground text-base'>
+                    {job?.salary}
+                  </p>
+                </>
+              )}
             </div>
             {job?.desc && (
               <p className='text-muted-foreground my-2 line-clamp-2 text-xs'>
@@ -30,7 +36,7 @@ export default function JobApplicationCardOverlay({
               </p>
             )}
             {job?.tags && job?.tags.length > 0 && (
-              <div className='mb-2 flex flex-wrap gap-1'>
+              <div className='flex flex-wrap gap-1'>
                 {parseJobTags(job?.tags).map((tag, idx) => (
                   <span
                     key={idx}
@@ -44,7 +50,7 @@ export default function JobApplicationCardOverlay({
               <a
                 target='_blank'
                 href={job?.url}
-                className='text-primary my-1 inline-flex items-center gap-1 text-xs hover:underline'>
+                className='text-primary mt-2 inline-flex items-center gap-1 text-xs'>
                 <ExternalLink className='size-3' /> Visit Offer
               </a>
             )}
