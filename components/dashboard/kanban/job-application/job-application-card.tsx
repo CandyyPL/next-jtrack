@@ -84,7 +84,7 @@ export default function JobApplicationCard({
                 </p>
               )}
               {job.tags && job.tags.length > 0 && (
-                <div className='mb-2 flex flex-wrap gap-1'>
+                <div className='flex flex-wrap gap-1'>
                   {job.tags.split(',').map((tag, key) => (
                     <span
                       key={key}
@@ -98,7 +98,7 @@ export default function JobApplicationCard({
                 <a
                   target='_blank'
                   href={job.url}
-                  className='text-primary my-1 inline-flex items-center gap-1 text-xs hover:underline'>
+                  className='text-primary mt-2 inline-flex items-center gap-1 text-xs hover:underline'>
                   <ExternalLink className='size-3' /> Visit Offer
                 </a>
               )}
