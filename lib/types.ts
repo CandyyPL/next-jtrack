@@ -25,9 +25,18 @@ export type Board = {
   name: string;
 };
 
+export type DemoBoard = {
+  columns: ColumnWithDemoApplication[];
+};
+
 export type Column = {
   id: string;
   boardId: string;
+  name: string;
+  listOrder: number;
+};
+
+export type DemoColumnData = {
   name: string;
   listOrder: number;
 };
@@ -45,8 +54,21 @@ export type Application = {
   tags: string;
 };
 
+export type DemoApplication = {
+  id: string;
+  columnId: string;
+  company: string;
+  position: string;
+  location: string;
+  listOrder: number;
+};
+
 export type ColumnWithApplication = Column & {
   applications: Application[];
+};
+
+export type ColumnWithDemoApplication = Omit<Column, 'boardId'> & {
+  applications: DemoApplication[];
 };
 
 export type FullBoardData = Board & {

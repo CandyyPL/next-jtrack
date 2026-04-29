@@ -1,6 +1,7 @@
 import HeroImageGallery from '@/components/main-page/hero-image-gallery';
 import { Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
 import StartButton from '@/components/main-page/start-button';
+import TryButton from '@/components/main-page/try-button';
 
 export default function Home() {
   return (
@@ -15,7 +16,10 @@ export default function Home() {
               Capture, organize and manage your job search in one place.
             </p>
             <div className='flex flex-col items-center gap-4'>
-              <StartButton />
+              <div className='flex gap-4'>
+                <StartButton />
+                <TryButton />
+              </div>
               <p className='text-muted-foreground text-sm'>
                 Free forever. No credit card required.
               </p>
