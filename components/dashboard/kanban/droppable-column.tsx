@@ -31,7 +31,7 @@ export default function DroppableColumn({
 
   return (
     <Card className='min-h-150 w-100 shrink-0 gap-0 p-0 shadow-md'>
-      <CardHeader className={`${config.color} rounded-t-lg py-3 text-white`}>
+      <CardHeader className={`${config.color} rounded-t-lg py-4 text-white`}>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
             {config.icon}
@@ -39,7 +39,7 @@ export default function DroppableColumn({
               {col.name}
             </CardTitle>
           </div>
-          <ColumnDropdown />
+          {/*<ColumnDropdown columnId={col.id} />*/}
         </div>
       </CardHeader>
       <CardContent
