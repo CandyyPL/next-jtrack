@@ -34,7 +34,7 @@ function Dashboard({ boardData }: Props) {
   return (
     <main className='min-h-[calc(100vh-4rem-1px)]'>
       <div className='container mx-auto p-6'>
-        <header className='mb-6 flex items-center justify-between'>
+        <header className='mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
           <div>
             <h1 className='text-3xl font-bold text-black'>{boardData?.name}</h1>
             <p className='text-gray-600'>Track your job applications.</p>
@@ -54,7 +54,7 @@ function Dashboard({ boardData }: Props) {
               )}
             </Button>
           ) : (
-            <span className='flex h-12 items-center gap-2 rounded-md bg-green-100 px-4 py-2 font-semibold text-green-600'>
+            <span className='flex items-center gap-2 rounded-md bg-green-100 px-4 py-2 font-semibold text-green-600'>
               <CircleCheckBig /> Up to date
             </span>
           )}

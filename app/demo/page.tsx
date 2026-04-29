@@ -19,8 +19,8 @@ function Demo({ boardData }: Props) {
   return (
     <main className='min-h-[calc(100vh-4rem-1px)]'>
       <div className='container mx-auto p-6'>
-        <header className='mb-6 flex items-center justify-between'>
-          <div>
+        <header className='mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
+          <div className='space-y-2'>
             <h1 className='flex items-center gap-2 text-3xl font-bold text-black'>
               Demo Board
               <HoverCard
@@ -43,9 +43,10 @@ function Demo({ boardData }: Props) {
               Try this Job Application tracking Kanban Board.
             </p>
           </div>
-          <span className='flex h-12 items-center gap-2 rounded-md bg-red-100 px-4 py-2 font-medium text-red-600'>
-            <AlertTriangle /> Data in Demo Board cannot be saved. Create a free
-            account to save your job applications.
+          <span className='flex items-center gap-2 rounded-md bg-red-100 px-4 py-4 font-medium text-red-600'>
+            <AlertTriangle className='size-16 md:size-10 xl:size-6' /> Data in
+            Demo Board cannot be saved. Create a free account to save your job
+            applications.
           </span>
         </header>
         <KanbanBoard boardData={boardData} />

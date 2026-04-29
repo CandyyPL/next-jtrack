@@ -201,7 +201,7 @@ export default function KanbanBoard({ boardData }: Props) {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}>
-          <div className='flex justify-between gap-4'>
+          <div className='flex flex-col justify-stretch gap-4 xl:flex-row'>
             {columns.map((col) => {
               const config = isAuthenticated()
                 ? columnConfig[col.listOrder]
