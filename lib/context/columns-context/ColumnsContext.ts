@@ -6,11 +6,7 @@ export type ColumnsContext = {
   columns: ColumnWithApplication[];
   updates: ColumnUpdates[];
   handleAddJob: (job: Application, newColumnId: string) => void;
-  handleMoveJob: (
-    job: Application,
-    targetColumnId: string,
-    order: number
-  ) => void;
+  handleMoveJob: (job: Application, targetColumnId: string) => void;
   handleUpdateJob: (jobId: string, updates: Optional<Application>) => void;
   handleDeleteJob: (jobId: string) => void;
   handleSwapJobs: (columnId: string, idx1: number, idx2: number) => void;

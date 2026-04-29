@@ -127,7 +127,7 @@ export default function JobApplicationCard({
                       <DropdownMenuItem
                         key={col.id}
                         className='cursor-pointer'
-                        onClick={() => handleMoveJob(job, col.id, -1)}>
+                        onClick={() => handleMoveJob(job, col.id)}>
                         Move to {col.name}
                       </DropdownMenuItem>
                     ))}
