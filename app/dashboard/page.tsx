@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Application, Board, Column, FullBoardData } from '@/lib/types';
 import { Suspense } from 'react';
+import { MoonLoader } from 'react-spinners';
+import Loader from '@/components/dashboard/loader';
 
 async function getData(userId: string) {
   'use cache';
@@ -62,7 +64,7 @@ async function DashboardContent() {
 
 export default function Dashboard() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<Loader />}>
       <DashboardContent />
     </Suspense>
   );
