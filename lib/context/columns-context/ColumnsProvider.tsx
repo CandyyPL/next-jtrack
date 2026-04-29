@@ -1,7 +1,6 @@
 import { Application, ColumnWithApplication, Optional } from '@/lib/types';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
-import { bulkUpdateApplications } from '@/lib/actions/bulk-update';
 
 type Props = {
   children: React.ReactNode;
@@ -22,17 +21,25 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   );
   const [updates, setUpdates] = useState<ColumnUpdates[]>([]);
 
-  const originalColumns =
-    initialColumns?.flatMap((col) =>
-      col.applications.map((job) => ({
-        jobId: job.id,
-        columnId: job.columnId,
-        listOrder: job.listOrder,
-      }))
-    ) ?? [];
+  const originalData = useMemo(
+    () =>
+      initialColumns?.flatMap((col) =>
+        col.applications.map((job) => ({
+          jobId: job.id,
+          columnId: job.columnId,
+          listOrder: job.listOrder,
+        }))
+      ) ?? [],
+    [initialColumns]
+  );
 
   const handleAddJob = (job: Application, newColumnId: string) => {
-    addUpdate(job.id, newColumnId, 0);
+    const newColumn = columns.find((col) => col.id === newColumnId);
+    if (!newColumn) return;
+
+    const newIndex = newColumn.applications.length;
+
+    addUpdate(job.id, newColumnId, newIndex);
 
     setColumns((prev) =>
       prev.map((col) => {
@@ -40,7 +47,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
         const newItem = {
           ...job,
-          listOrder: col.applications.length,
+          listOrder: newIndex,
           columnId: newColumnId,
         };
 
@@ -90,20 +97,15 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     );
   };
 
-  const handleMoveJob = (
-    job: Application,
-    targetColumnId: string,
-    order: number
-  ) => {
+  const handleMoveJob = (job: Application, targetColumnId: string) => {
     const targetColumn = columns.find((col) => col.id === targetColumnId);
     if (!targetColumn) return;
 
-    if (order === -1) order = targetColumn?.applications.length;
+    const index = targetColumn.applications.length;
 
-    addUpdate(job.id, targetColumnId, order);
+    addUpdate(job.id, targetColumnId, index);
     handleDeleteJob(job.id);
-    const newJob = { ...job, columnId: targetColumnId, listOrder: order };
-    handleAddJob(newJob, targetColumnId);
+    handleAddJob(job, targetColumnId);
   };
 
   const handleUpdateJob = (jobId: string, updates: Optional<Application>) => {
@@ -178,11 +180,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     const column = columns.find((col) => col.id === columnId);
     if (!column) return;
 
-    const itemA = column.applications[a];
-    const itemB = column.applications[b];
-
-    itemA.listOrder = b;
-    itemB.listOrder = a;
+    const itemA = { ...column.applications[a], listOrder: b };
+    const itemB = { ...column.applications[b], listOrder: a };
 
     const newApplications = [...column.applications];
     newApplications[a] = itemB;
@@ -208,11 +207,11 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
 
   const addUpdate = (jobId: string, columnId: string, listOrder: number) => {
     setUpdates((prev) => {
-      const updateIndex = updates.findIndex((item) => item.jobId === jobId);
+      const updateIndex = prev.findIndex((item) => item.jobId === jobId);
 
       if (updateIndex === -1) return [...prev, { jobId, columnId, listOrder }];
 
-      const original = originalColumns.find((item) => item.jobId === jobId);
+      const original = originalData.find((item) => item.jobId === jobId);
       if (
         original &&
         original.columnId === columnId &&
