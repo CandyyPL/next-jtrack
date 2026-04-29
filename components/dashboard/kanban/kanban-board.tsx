@@ -1,4 +1,9 @@
-import { Application, FullBoardData } from '@/lib/types';
+import {
+  Application,
+  ColumnConfig,
+  ColumnWithApplication,
+  FullBoardData,
+} from '@/lib/types';
 import React, { useEffect, useState } from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import DroppableColumn from '@/components/dashboard/kanban/droppable-column';
@@ -19,14 +24,10 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import JobApplicationCardOverlay from '@/components/dashboard/kanban/job-application/job-application-card-overlay';
 import { useColumns } from '@/lib/hooks/useColumns';
+import { demoColumnConfig } from '@/lib/columns-config';
 
 type Props = {
   boardData: FullBoardData;
-};
-
-export type ColumnConfig = {
-  color: string;
-  icon: React.ReactNode;
 };
 
 const columnConfig: Array<ColumnConfig> = [
@@ -60,12 +61,15 @@ export default function KanbanBoard({ boardData }: Props) {
     handleDeleteJob,
     handleSwapJobs,
     handleRenewColumns,
+    isAuthenticated,
   } = useColumns();
   const [activeItemId, setActiveItemId] = useState<UniqueIdentifier | null>(
     null
   );
 
   useEffect(() => {
+    if (!isAuthenticated()) return;
+
     handleRenewColumns(boardData.columns);
   }, [boardData]);
 
@@ -204,7 +208,13 @@ export default function KanbanBoard({ boardData }: Props) {
           onDragCancel={handleDragCancel}>
           <div className='flex justify-between gap-4'>
             {columns.map((col) => {
-              const config = columnConfig[col.listOrder];
+              let config;
+
+              if (isAuthenticated()) {
+                config = columnConfig[col.listOrder];
+              } else {
+                config = demoColumnConfig[col.listOrder];
+              }
 
               return (
                 <DroppableColumn

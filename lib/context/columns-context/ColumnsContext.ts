@@ -19,6 +19,7 @@ export type ColumnsContext = {
   areColumnsUpdated: () => boolean;
   isApplicationUpdated: (jobId: string) => boolean;
   setUpdates: Dispatch<SetStateAction<ColumnUpdates[]>>;
+  isAuthenticated: () => boolean;
 };
 
 export const ColumnsContext = createContext<ColumnsContext | null>(null);

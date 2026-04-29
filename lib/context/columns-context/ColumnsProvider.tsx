@@ -5,6 +5,7 @@ import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 type Props = {
   children: React.ReactNode;
   initialColumns: ColumnWithApplication[] | null;
+  userId: string | null;
 };
 
 export type ColumnUpdates = {
@@ -13,25 +14,29 @@ export type ColumnUpdates = {
   listOrder: number;
 };
 
-// TODO: refactor updates logic to apply updates and further update ui (alert mark) AFTER dragging or during dragging but in acceptable moments
-
-export default function ColumnsProvider({ children, initialColumns }: Props) {
+export default function ColumnsProvider({
+  children,
+  initialColumns,
+  userId,
+}: Props) {
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     initialColumns ?? []
   );
   const [updates, setUpdates] = useState<ColumnUpdates[]>([]);
 
-  const originalData = useMemo(
-    () =>
+  const originalData = useMemo(() => {
+    if (!userId) return [];
+
+    return (
       initialColumns?.flatMap((col) =>
         col.applications.map((job) => ({
           jobId: job.id,
           columnId: job.columnId,
           listOrder: job.listOrder,
         }))
-      ) ?? [],
-    [initialColumns]
-  );
+      ) ?? []
+    );
+  }, [initialColumns]);
 
   const handleAddJob = (job: Application, newColumnId: string) => {
     const newColumn = columns.find((col) => col.id === newColumnId);
@@ -117,7 +122,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     const existingJob = column.applications.find((job) => job.id === jobId);
     if (!existingJob) return;
 
-    const newApplication: Application = { ...existingJob, ...updates };
+    const newApplication = { ...existingJob, ...updates };
 
     removeUpdate(jobId);
 
@@ -206,6 +211,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   };
 
   const addUpdate = (jobId: string, columnId: string, listOrder: number) => {
+    if (!userId) return;
+
     setUpdates((prev) => {
       const updateIndex = prev.findIndex((item) => item.jobId === jobId);
 
@@ -231,6 +238,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   };
 
   const removeUpdate = (jobId: string) => {
+    if (!userId) return;
+
     setUpdates((prev) => prev.filter((item) => item.jobId !== jobId));
   };
 
@@ -239,6 +248,8 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
   const isApplicationUpdated = (jobId: string) => {
     return updates.some((item) => item.jobId === jobId);
   };
+
+  const isAuthenticated = () => !!userId;
 
   const provide = {
     columns,
@@ -253,6 +264,7 @@ export default function ColumnsProvider({ children, initialColumns }: Props) {
     areColumnsUpdated,
     isApplicationUpdated,
     setUpdates,
+    isAuthenticated,
   };
 
   return (

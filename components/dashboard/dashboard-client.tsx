@@ -65,9 +65,16 @@ function Dashboard({ boardData }: Props) {
   );
 }
 
-export default function DashboardClient({ boardData }: Props) {
+type ClientProps = {
+  boardData: FullBoardData;
+  userId: string;
+};
+
+export default function DashboardClient({ boardData, userId }: ClientProps) {
   return (
-    <ColumnsProvider initialColumns={boardData.columns}>
+    <ColumnsProvider
+      initialColumns={boardData.columns}
+      userId={userId}>
       <Dashboard boardData={boardData} />
     </ColumnsProvider>
   );
