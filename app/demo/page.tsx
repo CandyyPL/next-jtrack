@@ -7,12 +7,12 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
 import { CircleQuestionMark } from 'lucide-react';
-import useLocalStorage from '@/lib/hooks/useLocalStorage';
 import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
-import { DemoBoard } from '@/lib/types';
+import { Application, FullBoardData } from '@/lib/types';
+import { DEMO_BOARD } from '@/lib/demo-boards';
 
 type Props = {
-  boardData: DemoBoard;
+  boardData: FullBoardData;
 };
 
 function Demo({ boardData }: Props) {
@@ -51,9 +51,7 @@ function Demo({ boardData }: Props) {
 }
 
 export default function DemoDashboard() {
-  const { getData } = useLocalStorage();
-
-  const boardData = getData();
+  const boardData = DEMO_BOARD;
 
   return (
     <ColumnsProvider

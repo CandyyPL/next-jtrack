@@ -52,7 +52,12 @@ async function DashboardContent() {
 
   const boardData = await getData(session.user.id);
 
-  return <DashboardClient boardData={boardData} />;
+  return (
+    <DashboardClient
+      boardData={boardData}
+      userId={session.user.id}
+    />
+  );
 }
 
 export default function Dashboard() {
