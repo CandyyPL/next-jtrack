@@ -2,7 +2,6 @@ import HeroImageGallery from '@/components/main-page/hero-image-gallery';
 import { Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
 import MainPageStartButtons from '@/components/main-page/main-page-start-buttons';
 import { Suspense } from 'react';
-import StartButton from '@/components/main-page/start-button';
 
 export default function Home() {
   return (

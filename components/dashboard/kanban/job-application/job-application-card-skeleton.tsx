@@ -1,6 +1,6 @@
 import { Application, SortableProps } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { Dot, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 import { CSS } from '@dnd-kit/utilities';
 
