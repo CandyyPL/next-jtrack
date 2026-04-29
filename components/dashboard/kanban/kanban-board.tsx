@@ -187,7 +187,12 @@ export default function KanbanBoard({ boardData }: Props) {
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
-    useSensor(TouchSensor)
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 100,
+      },
+    })
   );
 
   return (
