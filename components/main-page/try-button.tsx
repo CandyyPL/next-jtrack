@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/shadcn/button';
-import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function TryButton() {

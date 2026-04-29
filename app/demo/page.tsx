@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/hover-card';
 import { CircleQuestionMark } from 'lucide-react';
 import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
-import { Application, FullBoardData } from '@/lib/types';
+import { FullBoardData } from '@/lib/types';
 import { DEMO_BOARD } from '@/lib/demo-boards';
 
 type Props = {

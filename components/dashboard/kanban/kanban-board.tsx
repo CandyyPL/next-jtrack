@@ -1,9 +1,4 @@
-import {
-  Application,
-  ColumnConfig,
-  ColumnWithApplication,
-  FullBoardData,
-} from '@/lib/types';
+import { Application, ColumnConfig, FullBoardData } from '@/lib/types';
 import React, { useEffect, useState } from 'react';
 import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import DroppableColumn from '@/components/dashboard/kanban/droppable-column';
@@ -21,7 +16,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import JobApplicationCardOverlay from '@/components/dashboard/kanban/job-application/job-application-card-overlay';
 import { useColumns } from '@/lib/hooks/useColumns';
 import { demoColumnConfig } from '@/lib/columns-config';

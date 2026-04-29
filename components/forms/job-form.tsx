@@ -6,18 +6,16 @@ import {
 } from '@/components/shadcn/field';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { Input } from '@/components/shadcn/input';
-import { Textarea } from '@/components/shadcn/textarea';
 import { DialogClose, DialogFooter } from '@/components/shadcn/dialog';
 import { Button } from '@/components/shadcn/button';
 import { MoonLoader } from 'react-spinners';
 import { JobFormDataType } from '@/lib/types';
 import { useColumns } from '@/lib/hooks/useColumns';
-import { Lock, TriangleAlert } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-  InputGroupText,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
 import {
