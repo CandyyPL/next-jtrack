@@ -1,6 +1,5 @@
-import { ColumnWithApplication } from '@/lib/types';
+import { ColumnConfig, ColumnWithApplication } from '@/lib/types';
 import React from 'react';
-import { ColumnConfig } from '@/components/dashboard/kanban/kanban-board';
 import {
   Card,
   CardContent,
