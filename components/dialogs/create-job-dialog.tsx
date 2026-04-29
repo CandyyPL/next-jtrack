@@ -32,7 +32,7 @@ export default function CreateJobDialog({ columnId }: Props) {
           Add Job
         </Button>
       </DialogTrigger>
-      <DialogContent className='min-w-120'>
+      <DialogContent className='max-w-[screen - 1rem] w-120'>
         <DialogHeader>
           <DialogTitle>Add Job Application</DialogTitle>
           <DialogDescription>Track a new job application</DialogDescription>

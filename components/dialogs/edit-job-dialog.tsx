@@ -22,7 +22,7 @@ export default function EditJobDialog({ job, open, setOpen }: Props) {
     <Dialog
       open={open}
       onOpenChange={setOpen}>
-      <DialogContent className='min-w-120'>
+      <DialogContent className='max-w-[screen - 1rem] w-120'>
         <DialogHeader>
           <DialogTitle>Edit a Job Application</DialogTitle>
           <DialogDescription>
