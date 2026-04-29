@@ -24,12 +24,12 @@ export default function NavbarButtons() {
     router.push('/');
   };
 
-  const handleDelete = async () => {
-    if (session) {
-      await deleteUser(session.user.id);
-      await handleLogout();
-    }
-  };
+  // const handleDelete = async () => {
+  //   if (session) {
+  //     await deleteUser(session.user.id);
+  //     await handleLogout();
+  //   }
+  // };
 
   return (
     <div className='flex items-center gap-4'>
