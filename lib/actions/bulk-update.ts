@@ -1,10 +1,10 @@
 'use server';
 
-import { ColumnUpdates } from '@/lib/context/columns-context/ColumnsProvider';
 import { supabase } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
+import { ApplicationUpdates } from '@/lib/types';
 
-export async function bulkUpdateApplications(updates: ColumnUpdates[]) {
+export async function bulkUpdateApplications(updates: ApplicationUpdates[]) {
   if (updates.length === 0) return;
 
   for (const update of updates) {
