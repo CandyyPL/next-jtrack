@@ -31,6 +31,7 @@ export async function initUserBoards(userId: string) {
   const board = {
     name: 'Job Hunt',
     userId,
+    desc: 'Track your job applications.',
   };
 
   const { data: rawSaved } = await supabase
