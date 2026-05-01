@@ -1,6 +1,6 @@
-import { type Icon } from '@/components/forms/column-form';
 import { DynamicIcon } from 'lucide-react/dynamic';
 import { cn } from '@/lib/utils';
+import { Icon } from '@/lib/types';
 
 type Props = {
   icons: Icon[];
