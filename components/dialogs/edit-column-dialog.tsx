@@ -8,8 +8,7 @@ import {
   DialogTitle,
 } from '@/components/shadcn/dialog';
 import React, { Dispatch, SetStateAction } from 'react';
-import { Application, Column } from '@/lib/types';
-import EditJobForm from '@/components/forms/edit-job-form';
+import { Column } from '@/lib/types';
 import EditColumnForm from '@/components/forms/edit-column-form';
 
 type Props = {

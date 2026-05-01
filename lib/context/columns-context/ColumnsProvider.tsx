@@ -1,8 +1,6 @@
 import {
   Application,
   ApplicationUpdates,
-  BoardUpdates,
-  ColumnUpdates,
   ColumnWithApplication,
   Optional,
 } from '@/lib/types';

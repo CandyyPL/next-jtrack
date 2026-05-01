@@ -5,20 +5,23 @@ import {
   DropdownMenuTrigger,
 } from '@/components/shadcn/dropdown-menu';
 import { Button } from '@/components/shadcn/button';
-import { MoreVertical, Trash2 } from 'lucide-react';
+import { Edit2, MoreVertical, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { deleteColumn } from '@/lib/actions/delete-column';
 import DeleteColumnDialog from '@/components/dialogs/delete-column-dialog';
+import { Column } from '@/lib/types';
+import EditColumnDialog from '@/components/dialogs/edit-column-dialog';
 
 type Props = {
-  columnId: string;
+  column: Column;
 };
 
-export default function ColumnDropdown({ columnId }: Props) {
+export default function ColumnDropdown({ column }: Props) {
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const handleDeleteColumn = async () => {
-    await deleteColumn(columnId);
+    await deleteColumn(column.id);
     setDeleteDialogOpen(false);
   };
 
@@ -37,6 +40,11 @@ export default function ColumnDropdown({ columnId }: Props) {
           align='end'
           className='w-fit'>
           <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() => setEditDialogOpen(true)}>
+            <Edit2 className='mr-2 size-4' /> Edit Column
+          </DropdownMenuItem>
+          <DropdownMenuItem
             className='text-destructive cursor-pointer'
             onClick={() => setDeleteDialogOpen(true)}>
             <Trash2 className='mr-2 size-4' />
@@ -44,6 +52,11 @@ export default function ColumnDropdown({ columnId }: Props) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <EditColumnDialog
+        column={column}
+        open={editDialogOpen}
+        setOpen={setEditDialogOpen}
+      />
       <DeleteColumnDialog
         open={deleteDialogOpen}
         setOpen={setDeleteDialogOpen}

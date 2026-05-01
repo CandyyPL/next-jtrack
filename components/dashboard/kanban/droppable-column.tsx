@@ -14,32 +14,36 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import JobApplicationCardWrapper from '@/components/dashboard/kanban/job-application/job-application-card-wrapper';
+import { DynamicIcon } from 'lucide-react/dynamic';
+import { colors } from '@/lib/colors';
+import { icons } from '@/lib/icons';
 
 type DroppableColumnProps = {
   columns: ColumnWithApplication[];
   col: ColumnWithApplication;
-  config: ColumnConfig;
   boardId: string;
 };
 
 export default function DroppableColumn({
   columns,
   col,
-  config,
 }: DroppableColumnProps) {
   const { setNodeRef } = useDroppable({ id: col.id });
 
+  const color = colors.find((c) => c.id === col.color)!;
+  const icon = icons.find((i) => i.id === col.icon)!;
+
   return (
     <Card className='flex min-h-150 flex-1 shrink-0 flex-col gap-0 bg-gray-50/50 p-0 shadow-md'>
-      <CardHeader className={`${config.color} rounded-t-lg py-4 text-white`}>
+      <CardHeader className={`${color.tw} rounded-t-lg py-4 text-white`}>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
-            {config.icon}
+            <DynamicIcon name={icon.value} />
             <CardTitle className='text-base font-semibold text-white'>
               {col.name}
             </CardTitle>
           </div>
-          {/*<ColumnDropdown columnId={col.id} />*/}
+          <ColumnDropdown column={col} />
         </div>
       </CardHeader>
       <CardContent
