@@ -27,7 +27,7 @@ export default function DeleteColumnDialog({
     <Dialog
       open={open}
       onOpenChange={setOpen}>
-      <DialogContent className='min-w-120'>
+      <DialogContent className='min-w-[min(calc(100vw-1rem),32rem)]'>
         <DialogHeader>
           <DialogTitle>Delete Column</DialogTitle>
           <DialogDescription>

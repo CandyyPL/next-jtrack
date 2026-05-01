@@ -27,7 +27,7 @@ export default function DeleteJobDialog({
     <Dialog
       open={open}
       onOpenChange={setOpen}>
-      <DialogContent className='max-w-[screen - 1rem] w-120'>
+      <DialogContent className='min-w-[min(calc(100vw-1rem),32rem)]'>
         <DialogHeader>
           <DialogTitle>Delete Job Application</DialogTitle>
           <DialogDescription>
