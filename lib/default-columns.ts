@@ -1,32 +1,32 @@
 export const DEFAULT_COLUMNS = [
   {
     name: 'Wish List',
-    color: '',
-    icon: '',
+    color: '4',
+    icon: '0',
     listOrder: 0,
   },
   {
     name: 'Applied',
-    color: '',
-    icon: '',
+    color: '2',
+    icon: '1',
     listOrder: 1,
   },
   {
     name: 'Interviewing',
-    color: '',
-    icon: '',
+    color: '6',
+    icon: '2',
     listOrder: 2,
   },
   {
     name: 'Offer',
-    color: '',
-    icon: '',
+    color: '1',
+    icon: '3',
     listOrder: 3,
   },
   {
     name: 'Rejected',
-    color: '',
-    icon: '',
+    color: '0',
+    icon: '4',
     listOrder: 4,
   },
 ];
