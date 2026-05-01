@@ -1,14 +1,13 @@
 'use server';
 
-import { ColumnUpdates } from '@/lib/types';
+import { ColumnUpdates, Optional } from '@/lib/types';
 import { supabase } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
 
-type Props = {
-  updates: ColumnUpdates;
-};
-
-export async function updateColumn({ updates }: Props) {
-  await supabase.from('column').update(updates).eq('id', updates.id);
+export async function updateColumn(
+  columnId: string,
+  updates: Optional<ColumnUpdates>
+) {
+  await supabase.from('column').update(updates).eq('id', columnId);
   revalidatePath('/dashboard');
 }

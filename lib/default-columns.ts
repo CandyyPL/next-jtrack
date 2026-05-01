@@ -12,21 +12,15 @@ export const DEFAULT_COLUMNS = [
     listOrder: 1,
   },
   {
-    name: 'Interviewing',
-    color: '6',
-    icon: '2',
-    listOrder: 2,
-  },
-  {
     name: 'Offer',
     color: '1',
     icon: '3',
-    listOrder: 3,
+    listOrder: 2,
   },
   {
     name: 'Rejected',
     color: '0',
     icon: '4',
-    listOrder: 4,
+    listOrder: 3,
   },
 ];

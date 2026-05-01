@@ -24,7 +24,7 @@ export const ColumnFormSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters long'),
   color: z.string(),
   icon: z.string(),
-  order: z.number(),
+  listOrder: z.number(),
 });
 
 export type ColumnFormType = z.infer<typeof ColumnFormSchema>;

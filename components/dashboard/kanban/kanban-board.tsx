@@ -37,6 +37,8 @@ export default function KanbanBoard({ boardData }: Props) {
     null
   );
 
+  const sortedColumns = columns.sort((a, b) => a.listOrder - b.listOrder);
+
   useEffect(() => {
     if (!isAuthenticated()) return;
 
@@ -182,10 +184,10 @@ export default function KanbanBoard({ boardData }: Props) {
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}>
           <div className='flex flex-col justify-stretch gap-4 xl:flex-row'>
-            {columns.map((col) => (
+            {sortedColumns.map((col) => (
               <DroppableColumn
                 key={col.id}
-                columns={columns}
+                columns={sortedColumns}
                 col={col}
                 boardId={boardData.id}
               />
