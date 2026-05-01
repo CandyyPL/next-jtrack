@@ -1,6 +1,5 @@
-import { Application, ColumnConfig, FullBoardData } from '@/lib/types';
+import { Application, FullBoardData } from '@/lib/types';
 import React, { useEffect, useState } from 'react';
-import { Award, Calendar, CheckCircle, Mic, XCircle } from 'lucide-react';
 import DroppableColumn from '@/components/dashboard/kanban/droppable-column';
 import {
   closestCorners,

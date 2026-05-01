@@ -1,4 +1,4 @@
-import { ColumnConfig, ColumnWithApplication } from '@/lib/types';
+import { ColumnWithApplication } from '@/lib/types';
 import React from 'react';
 import {
   Card,
