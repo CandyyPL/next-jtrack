@@ -19,34 +19,10 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import JobApplicationCardOverlay from '@/components/dashboard/kanban/job-application/job-application-card-overlay';
 import { useColumns } from '@/lib/hooks/useColumns';
-import { demoColumnConfig } from '@/lib/columns-config';
 
 type Props = {
   boardData: FullBoardData;
 };
-
-const columnConfig: Array<ColumnConfig> = [
-  {
-    color: 'bg-cyan-500',
-    icon: <Calendar />,
-  },
-  {
-    color: 'bg-purple-500',
-    icon: <CheckCircle className='size-4' />,
-  },
-  {
-    color: 'bg-green-500',
-    icon: <Mic className='size-4' />,
-  },
-  {
-    color: 'bg-yellow-500',
-    icon: <Award className='size-4' />,
-  },
-  {
-    color: 'bg-red-500',
-    icon: <XCircle className='size-4' />,
-  },
-];
 
 export default function KanbanBoard({ boardData }: Props) {
   const {
@@ -207,21 +183,14 @@ export default function KanbanBoard({ boardData }: Props) {
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}>
           <div className='flex flex-col justify-stretch gap-4 xl:flex-row'>
-            {columns.map((col) => {
-              const config = isAuthenticated()
-                ? columnConfig[col.listOrder]
-                : demoColumnConfig[col.listOrder];
-
-              return (
-                <DroppableColumn
-                  key={col.id}
-                  columns={columns}
-                  col={col}
-                  config={config}
-                  boardId={boardData.id}
-                />
-              );
-            })}
+            {columns.map((col) => (
+              <DroppableColumn
+                key={col.id}
+                columns={columns}
+                col={col}
+                boardId={boardData.id}
+              />
+            ))}
           </div>
           <DragOverlay dropAnimation={{ duration: 200 }}>
             {activeItemId ? (
