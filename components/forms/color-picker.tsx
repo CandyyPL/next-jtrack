@@ -1,10 +1,9 @@
-import { type Color } from '@/components/forms/column-form';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
+import { Color } from '@/lib/types';
 
 type Props = {
   colors: Color[];
-  name: string;
   value: string;
   onChange: (value: string) => void;
   onBlur: () => void;

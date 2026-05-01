@@ -14,6 +14,7 @@ import ColorPicker from '@/components/forms/color-picker';
 import IconPicker from '@/components/forms/icon-picker';
 import { colors } from '@/lib/colors';
 import { icons } from '@/lib/icons';
+import OrderPicker from '@/components/forms/order-picker';
 
 type Props = {
   form: UseFormReturn<ColumnFormType>;
@@ -80,6 +81,22 @@ export default function ColumnForm({
               <IconPicker
                 icons={icons}
                 {...field}
+              />
+              {fieldState.error && (
+                <FieldError>{fieldState.error.message}</FieldError>
+              )}
+            </Field>
+          )}
+        />
+        <Controller
+          name='listOrder'
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name}>Order</FieldLabel>
+              <OrderPicker
+                value={field.value}
+                onChange={field.onChange}
               />
               {fieldState.error && (
                 <FieldError>{fieldState.error.message}</FieldError>

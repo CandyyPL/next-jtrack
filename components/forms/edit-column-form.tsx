@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Column, ColumnFormSchema, ColumnFormType } from '@/lib/types';
 import ColumnForm from '@/components/forms/column-form';
-import { updateColumn } from '@/lib/actions/update-column';
+import { useColumns } from '@/lib/hooks/useColumns';
 
 type Props = {
   column: Column;
@@ -13,6 +13,8 @@ type Props = {
 export default function EditColumnForm({ column, closeDialog }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const { handleUpdateColumn } = useColumns();
 
   const form = useForm({
     resolver: zodResolver(ColumnFormSchema),
@@ -27,7 +29,7 @@ export default function EditColumnForm({ column, closeDialog }: Props) {
   const onSubmit = async (data: ColumnFormType) => {
     setLoading(true);
 
-    await updateColumn(column.id, data);
+    handleUpdateColumn(column.id, data);
 
     setLoading(false);
     closeDialog();

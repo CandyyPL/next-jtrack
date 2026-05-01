@@ -57,7 +57,6 @@ export type ColumnConfig = {
 };
 
 export type ColumnUpdates = {
-  id: string;
   name: string;
   color: string;
   icon: string;

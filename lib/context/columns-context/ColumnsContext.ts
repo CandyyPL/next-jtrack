@@ -2,6 +2,7 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 import {
   Application,
   ApplicationUpdates,
+  ColumnUpdates,
   ColumnWithApplication,
   Optional,
 } from '@/lib/types';
@@ -23,6 +24,7 @@ export type ColumnsContext = {
   areColumnsUpdated: () => boolean;
   isApplicationUpdated: (jobId: string) => boolean;
   setUpdates: Dispatch<SetStateAction<ApplicationUpdates[]>>;
+  handleUpdateColumn: (columnId: string, updates: ColumnUpdates) => void;
   isAuthenticated: () => boolean;
 };
 

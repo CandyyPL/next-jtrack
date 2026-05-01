@@ -1,11 +1,13 @@
 import {
   Application,
   ApplicationUpdates,
+  ColumnUpdates,
   ColumnWithApplication,
   Optional,
 } from '@/lib/types';
 import React, { useMemo, useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
+import { updateColumn } from '@/lib/actions/update-column';
 
 type Props = {
   children: React.ReactNode;
@@ -248,6 +250,35 @@ export default function ColumnsProvider({
     return updates.some((item) => item.jobId === jobId);
   };
 
+  const handleUpdateColumn = async (
+    columnId: string,
+    updates: ColumnUpdates
+  ) => {
+    const column = columns.find((col) => col.id === columnId);
+    if (!column) return;
+
+    const { applications: sourceApplications, ...sourceColumnData } = column;
+
+    const newSourceColumn = { ...sourceColumnData, ...updates };
+
+    if (updates.listOrder === column.listOrder) {
+      await updateColumn(columnId, newSourceColumn);
+    } else {
+      const {
+        id: targetColumnId,
+        applications: targetApplications,
+        ...targetColumnData
+      } = columns[updates.listOrder];
+      const newTargetColumn = {
+        ...targetColumnData,
+        listOrder: column.listOrder,
+      };
+
+      await updateColumn(columnId, newSourceColumn);
+      await updateColumn(targetColumnId, newTargetColumn);
+    }
+  };
+
   const isAuthenticated = () => !!userId;
 
   const provide = {
@@ -263,6 +294,7 @@ export default function ColumnsProvider({
     areColumnsUpdated,
     isApplicationUpdated,
     setUpdates,
+    handleUpdateColumn,
     isAuthenticated,
   };
 
