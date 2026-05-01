@@ -1,10 +1,14 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
-import { Application, ColumnWithApplication, Optional } from '@/lib/types';
-import { ColumnUpdates } from '@/lib/context/columns-context/ColumnsProvider';
+import {
+  Application,
+  ApplicationUpdates,
+  ColumnWithApplication,
+  Optional,
+} from '@/lib/types';
 
 export type ColumnsContext = {
   columns: ColumnWithApplication[];
-  updates: ColumnUpdates[];
+  updates: ApplicationUpdates[];
   handleAddJob: (job: Application, newColumnId: string) => void;
   handleMoveJob: (job: Application, targetColumnId: string) => void;
   handleUpdateJob: (jobId: string, updates: Optional<Application>) => void;
@@ -18,7 +22,7 @@ export type ColumnsContext = {
   handleRenewColumns: (columns: ColumnWithApplication[]) => void;
   areColumnsUpdated: () => boolean;
   isApplicationUpdated: (jobId: string) => boolean;
-  setUpdates: Dispatch<SetStateAction<ColumnUpdates[]>>;
+  setUpdates: Dispatch<SetStateAction<ApplicationUpdates[]>>;
   isAuthenticated: () => boolean;
 };
 

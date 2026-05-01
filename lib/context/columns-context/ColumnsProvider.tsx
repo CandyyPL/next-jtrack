@@ -1,4 +1,11 @@
-import { Application, ColumnWithApplication, Optional } from '@/lib/types';
+import {
+  Application,
+  ApplicationUpdates,
+  BoardUpdates,
+  ColumnUpdates,
+  ColumnWithApplication,
+  Optional,
+} from '@/lib/types';
 import React, { useMemo, useState } from 'react';
 import { ColumnsContext } from '@/lib/context/columns-context/ColumnsContext';
 
@@ -6,12 +13,6 @@ type Props = {
   children: React.ReactNode;
   initialColumns: ColumnWithApplication[] | null;
   userId: string | null;
-};
-
-export type ColumnUpdates = {
-  jobId: string;
-  columnId: string;
-  listOrder: number;
 };
 
 export default function ColumnsProvider({
@@ -22,7 +23,7 @@ export default function ColumnsProvider({
   const [columns, setColumns] = useState<ColumnWithApplication[]>(
     initialColumns ?? []
   );
-  const [updates, setUpdates] = useState<ColumnUpdates[]>([]);
+  const [updates, setUpdates] = useState<ApplicationUpdates[]>([]);
 
   const originalData = useMemo(() => {
     if (!userId) return [];
