@@ -24,8 +24,7 @@ export default function DemoDashboard() {
                     <CircleQuestionMark className='size-8 cursor-pointer lg:size-6' />
                   }>
                   <p className='text-center text-sm font-medium'>
-                    If you want to change title of your board, just create a
-                    free account!
+                    Create an account to edit the title.
                   </p>
                 </HoverCardWrapper>
               </h1>
