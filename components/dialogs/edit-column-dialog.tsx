@@ -9,7 +9,7 @@ import {
 } from '@/components/shadcn/dialog';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Column } from '@/lib/types';
-import EditColumnForm from '@/components/forms/edit-column-form';
+import EditColumnForm from '@/components/forms/column/edit-column-form';
 
 type Props = {
   column: Column;

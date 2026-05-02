@@ -10,11 +10,11 @@ import { DialogClose, DialogFooter } from '@/components/shadcn/dialog';
 import { Button } from '@/components/shadcn/button';
 import { MoonLoader } from 'react-spinners';
 import { ColumnFormType } from '@/lib/types';
-import ColorPicker from '@/components/forms/color-picker';
-import IconPicker from '@/components/forms/icon-picker';
+import ColorPicker from '@/components/forms/column/color-picker';
+import IconPicker from '@/components/forms/column/icon-picker';
 import { colors } from '@/lib/colors';
 import { icons } from '@/lib/icons';
-import OrderPicker from '@/components/forms/order-picker';
+import OrderPicker from '@/components/forms/column/order-picker';
 
 type Props = {
   form: UseFormReturn<ColumnFormType>;

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JobFormSchema, JobFormDataType } from '@/lib/types';
 import { createApplication } from '@/lib/actions/create-application';
-import JobForm from '@/components/forms/job-form';
+import JobForm from '@/components/forms/job/job-form';
 import { useColumns } from '@/lib/hooks/useColumns';
 
 type Props = {

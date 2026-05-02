@@ -9,7 +9,7 @@ import {
 } from '@/components/shadcn/dialog';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Application } from '@/lib/types';
-import EditJobForm from '@/components/forms/edit-job-form';
+import EditJobForm from '@/components/forms/job/edit-job-form';
 
 type Props = {
   job: Application;

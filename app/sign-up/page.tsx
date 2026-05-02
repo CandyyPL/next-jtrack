@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/shadcn/card';
-import SignUpForm from '@/components/forms/sign-up-form';
+import SignUpForm from '@/components/forms/sign/sign-up-form';
 
 export default function SignUp() {
   return (

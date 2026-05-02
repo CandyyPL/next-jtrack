@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/shadcn/card';
-import SignInForm from '@/components/forms/sign-in-form';
+import SignInForm from '@/components/forms/sign/sign-in-form';
 
 export default function SignIn() {
   return (

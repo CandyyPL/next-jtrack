@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { JobFormSchema, JobFormDataType, Application } from '@/lib/types';
-import JobForm from '@/components/forms/job-form';
+import JobForm from '@/components/forms/job/job-form';
 import { useColumns } from '@/lib/hooks/useColumns';
 import { updateApplication } from '@/lib/actions/update-application';
 
