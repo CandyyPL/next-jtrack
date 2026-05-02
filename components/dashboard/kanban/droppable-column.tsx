@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/shadcn/card';
-import CreateJobDialog from '@/components/dialogs/create-job-dialog';
+import CreateJobDialog from '@/components/dialogs/job/create-job-dialog';
 import ColumnDropdown from '@/components/dashboard/kanban/column-dropdown';
 import { useDroppable } from '@dnd-kit/core';
 import {

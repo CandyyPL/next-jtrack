@@ -6,7 +6,7 @@ import { useColumns } from '@/lib/hooks/useColumns';
 import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/shadcn/button';
-import { CircleCheckBig, Save } from 'lucide-react';
+import { CircleCheckBig, Edit2, Save } from 'lucide-react';
 import { bulkUpdateApplications } from '@/lib/actions/bulk-update';
 import { MoonLoader } from 'react-spinners';
 
@@ -38,7 +38,10 @@ function Dashboard({ boardData }: Props) {
       <div className='container mx-auto p-6'>
         <header className='mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
           <div>
-            <h1 className='text-3xl font-bold text-black'>{boardData?.name}</h1>
+            <h1 className='flex items-center gap-4 text-3xl font-bold text-black'>
+              {boardData?.name}
+              <Edit2 />
+            </h1>
             <p className='text-gray-600'>Track your job applications.</p>
           </div>
           {needUpdate ? (

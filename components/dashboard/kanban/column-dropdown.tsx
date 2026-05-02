@@ -8,9 +8,9 @@ import { Button } from '@/components/shadcn/button';
 import { Edit2, MoreVertical, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { deleteColumn } from '@/lib/actions/delete-column';
-import DeleteColumnDialog from '@/components/dialogs/delete-column-dialog';
+import DeleteColumnDialog from '@/components/dialogs/column/delete-column-dialog';
 import { Column } from '@/lib/types';
-import EditColumnDialog from '@/components/dialogs/edit-column-dialog';
+import EditColumnDialog from '@/components/dialogs/column/edit-column-dialog';
 
 type Props = {
   column: Column;
