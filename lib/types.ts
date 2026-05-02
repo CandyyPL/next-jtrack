@@ -19,14 +19,33 @@ export const SignUpFormSchema = SignInFormSchema.extend({
 export type SignInFormType = z.infer<typeof SignInFormSchema>;
 export type SignUpFormType = z.infer<typeof SignUpFormSchema>;
 
+export const JobFormSchema = z.object({
+  company: z.string().min(3, { error: 'Enter at least 3 characters' }),
+  position: z.string().min(3, { error: 'Enter at least 3 characters' }),
+  location: z.string(),
+  salary: z.string(),
+  url: z.httpUrl({ error: 'Enter a valid URL' }).or(z.literal('')),
+  tags: z.string(),
+  desc: z.string().max(200, { error: 'Enter no more than 200 characters' }),
+});
+
+export type JobFormDataType = z.infer<typeof JobFormSchema>;
+
 export const ColumnFormSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters long'),
+  name: z.string().min(3, 'Enter at least 3 characters'),
   color: z.string(),
   icon: z.string(),
   listOrder: z.number(),
 });
 
 export type ColumnFormType = z.infer<typeof ColumnFormSchema>;
+
+export const BoardFormSchema = z.object({
+  name: z.string().min(3, 'Enter at least 3 characters'),
+  desc: z.string().min(3, 'Enter at least 3 characters'),
+});
+
+export type BoardFormType = z.infer<typeof BoardFormSchema>;
 
 export type Board = {
   id: string;
@@ -36,9 +55,8 @@ export type Board = {
 };
 
 export type BoardUpdates = {
-  id: string;
   name: string;
-  description: string;
+  desc: string;
 };
 
 export type Column = {
@@ -109,18 +127,6 @@ export type Icon = {
   name: string;
   icon: React.ReactNode;
 };
-
-export const JobFormSchema = z.object({
-  company: z.string().min(3, { error: 'Enter at least 3 characters' }),
-  position: z.string().min(3, { error: 'Enter at least 3 characters' }),
-  location: z.string(),
-  salary: z.string(),
-  url: z.httpUrl({ error: 'Enter a valid URL' }).or(z.literal('')),
-  tags: z.string(),
-  desc: z.string().max(200, { error: 'Enter no more than 200 characters' }),
-});
-
-export type JobFormDataType = z.infer<typeof JobFormSchema>;
 
 export type Optional<T> = {
   [K in keyof T]?: T[K];

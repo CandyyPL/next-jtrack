@@ -9,6 +9,7 @@ import { Button } from '@/components/shadcn/button';
 import { CircleCheckBig, Edit2, Save } from 'lucide-react';
 import { bulkUpdateApplications } from '@/lib/actions/bulk-update';
 import { MoonLoader } from 'react-spinners';
+import EditBoardDialog from '@/components/dialogs/board/edit-board-dialog';
 
 type Props = {
   boardData: FullBoardData;
@@ -17,8 +18,8 @@ type Props = {
 function Dashboard({ boardData }: Props) {
   const { updates, setUpdates, areColumnsUpdated } = useColumns();
   const [needUpdate, setNeedUpdate] = useState<boolean>();
-
   const [saveLoading, setSaveLoading] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setNeedUpdate(areColumnsUpdated());
@@ -31,7 +32,7 @@ function Dashboard({ boardData }: Props) {
     setSaveLoading(false);
   };
 
-  // TODO: add board rename feature
+  const { columns, ...otherBoardData } = boardData;
 
   return (
     <main className='content-height'>
@@ -40,7 +41,10 @@ function Dashboard({ boardData }: Props) {
           <div>
             <h1 className='flex items-center gap-4 text-3xl font-bold text-black'>
               {boardData?.name}
-              <Edit2 />
+              <Edit2
+                onClick={() => setEditDialogOpen(true)}
+                className='cursor-pointer'
+              />
             </h1>
             <p className='text-gray-600'>Track your job applications.</p>
           </div>
@@ -65,6 +69,11 @@ function Dashboard({ boardData }: Props) {
           )}
         </header>
         <KanbanBoard boardData={boardData} />
+        <EditBoardDialog
+          board={otherBoardData}
+          open={editDialogOpen}
+          setOpen={setEditDialogOpen}
+        />
       </div>
     </main>
   );
