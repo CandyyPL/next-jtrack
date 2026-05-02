@@ -16,7 +16,7 @@ export default function JobApplicationCardOverlay({
   return (
     <>
       <Card className='group cursor-grabbing shadow-sm'>
-        <CardContent className='max-w-5/6 px-4'>
+        <CardContent className='w-full px-4'>
           <div className='min-w-0 flex-1'>
             <h3 className='mb-1 text-sm font-semibold'>{job?.position}</h3>
             <div className='flex items-center'>
