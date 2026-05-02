@@ -4,8 +4,10 @@ import { redirect } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Application, Board, Column, FullBoardData } from '@/lib/types';
 import { Suspense } from 'react';
-import { MoonLoader } from 'react-spinners';
 import Loader from '@/components/dashboard/loader';
+import MobileHydrator from '@/components/mobile-hydrator';
+import { userAgent } from 'next/server';
+import { headers } from 'next/headers';
 
 async function getData(userId: string) {
   'use cache';
@@ -54,11 +56,17 @@ async function DashboardContent() {
 
   const boardData = await getData(session.user.id);
 
+  const { device } = userAgent({ headers: await headers() });
+  const isMobile = device.type === 'mobile' || device.type === 'tablet';
+
   return (
-    <DashboardClient
-      boardData={boardData}
-      userId={session.user.id}
-    />
+    <>
+      <MobileHydrator isMobile={isMobile} />
+      <DashboardClient
+        boardData={boardData}
+        userId={session.user.id}
+      />
+    </>
   );
 }
 

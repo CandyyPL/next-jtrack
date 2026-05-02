@@ -18,11 +18,7 @@ import {
   InputGroupInput,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
+import HoverCardWrapper from '@/components/dashboard/hover-card-wrapper';
 
 type Props = {
   form: UseFormReturn<JobFormDataType>;
@@ -116,20 +112,11 @@ export default function JobForm({
                   />
                   {!isAuthenticated() && (
                     <InputGroupAddon align='inline-end'>
-                      <HoverCard
-                        openDelay={10}
-                        closeDelay={100}>
-                        <HoverCardTrigger
-                          asChild
-                          className='cursor-default'>
-                          <Lock />
-                        </HoverCardTrigger>
-                        <HoverCardContent className='flex w-48 justify-center'>
-                          <p className='text-sm font-medium'>
-                            Create account to unlock!
-                          </p>
-                        </HoverCardContent>
-                      </HoverCard>
+                      <HoverCardWrapper trigger={<Lock />}>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardWrapper>
                     </InputGroupAddon>
                   )}
                 </InputGroup>
@@ -154,20 +141,11 @@ export default function JobForm({
                   />
                   {!isAuthenticated() && (
                     <InputGroupAddon align='inline-end'>
-                      <HoverCard
-                        openDelay={10}
-                        closeDelay={100}>
-                        <HoverCardTrigger
-                          asChild
-                          className='cursor-default'>
-                          <Lock />
-                        </HoverCardTrigger>
-                        <HoverCardContent className='flex w-48 justify-center'>
-                          <p className='text-sm font-medium'>
-                            Create account to unlock!
-                          </p>
-                        </HoverCardContent>
-                      </HoverCard>
+                      <HoverCardWrapper trigger={<Lock />}>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardWrapper>
                     </InputGroupAddon>
                   )}
                 </InputGroup>
@@ -193,20 +171,11 @@ export default function JobForm({
                   />
                   {!isAuthenticated() && (
                     <InputGroupAddon align='inline-end'>
-                      <HoverCard
-                        openDelay={10}
-                        closeDelay={100}>
-                        <HoverCardTrigger
-                          asChild
-                          className='cursor-default'>
-                          <Lock />
-                        </HoverCardTrigger>
-                        <HoverCardContent className='flex w-48 justify-center'>
-                          <p className='text-sm font-medium'>
-                            Create account to unlock!
-                          </p>
-                        </HoverCardContent>
-                      </HoverCard>
+                      <HoverCardWrapper trigger={<Lock />}>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardWrapper>
                     </InputGroupAddon>
                   )}
                 </InputGroup>
@@ -231,20 +200,11 @@ export default function JobForm({
                   />
                   {!isAuthenticated() && (
                     <InputGroupAddon align='inline-end'>
-                      <HoverCard
-                        openDelay={10}
-                        closeDelay={100}>
-                        <HoverCardTrigger
-                          asChild
-                          className='cursor-default'>
-                          <Lock />
-                        </HoverCardTrigger>
-                        <HoverCardContent className='flex w-48 justify-center'>
-                          <p className='text-sm font-medium'>
-                            Create account to unlock!
-                          </p>
-                        </HoverCardContent>
-                      </HoverCard>
+                      <HoverCardWrapper trigger={<Lock />}>
+                        <p className='text-sm font-medium'>
+                          Create account to unlock!
+                        </p>
+                      </HoverCardWrapper>
                     </InputGroupAddon>
                   )}
                 </InputGroup>

@@ -20,12 +20,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { useColumns } from '@/lib/hooks/useColumns';
 import { deleteApplication } from '@/lib/actions/delete-application';
 import EditJobDialog from '@/components/dialogs/edit-job-dialog';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
 import DeleteJobDialog from '@/components/dialogs/delete-job-dialog';
+import HoverCardWrapper from '@/components/dashboard/hover-card-wrapper';
 
 type JobApplicationCardProps = {
   job: Application;
@@ -143,18 +139,10 @@ export default function JobApplicationCard({
                 </DropdownMenuContent>
               </DropdownMenu>
               {isApplicationUpdated(job.id) && (
-                <HoverCard // TODO: swap HoverCard for Popover on mobile
-                  openDelay={10}
-                  closeDelay={100}>
-                  <HoverCardTrigger
-                    asChild
-                    className='cursor-default'>
-                    <TriangleAlert className='text-red-400' />
-                  </HoverCardTrigger>
-                  <HoverCardContent className='flex justify-center'>
-                    <p className='text-sm font-medium'>Unsaved update!</p>
-                  </HoverCardContent>
-                </HoverCard>
+                <HoverCardWrapper
+                  trigger={<TriangleAlert className='text-red-400' />}>
+                  <p className='text-sm font-medium'>Unsaved update!</p>
+                </HoverCardWrapper>
               )}
               <EditJobDialog
                 job={job}
