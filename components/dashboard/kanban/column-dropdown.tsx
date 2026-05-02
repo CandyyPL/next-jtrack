@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/shadcn/dropdown-menu';
 import { Button } from '@/components/shadcn/button';
-import { Edit2, MoreVertical, Trash2 } from 'lucide-react';
+import { CircleQuestionMark, Edit2, MoreVertical, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { deleteColumn } from '@/lib/actions/delete-column';
 import DeleteColumnDialog from '@/components/dialogs/column/delete-column-dialog';
@@ -30,7 +30,7 @@ export default function ColumnDropdown({ column }: Props) {
     setDeleteDialogOpen(false);
   };
 
-  return (
+  return isAuthenticated() ? (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -44,22 +44,11 @@ export default function ColumnDropdown({ column }: Props) {
         <DropdownMenuContent
           align='end'
           className='w-fit'>
-          {isAuthenticated() ? (
-            <DropdownMenuItem
-              className='cursor-pointer'
-              onClick={() => setEditDialogOpen(true)}>
-              <Edit2 className='mr-2 size-4 cursor-pointer' /> Edit Column
-            </DropdownMenuItem>
-          ) : (
-            <HoverCardWrapper
-              trigger={
-                <DropdownMenuLabel className='flex gap-1.5 text-sm'>
-                  <Edit2 className='mr-2 size-4' /> Edit Column
-                </DropdownMenuLabel>
-              }>
-              Create an account to edit the column.
-            </HoverCardWrapper>
-          )}
+          <DropdownMenuItem
+            className='cursor-pointer'
+            onClick={() => setEditDialogOpen(true)}>
+            <Edit2 className='mr-2 size-4 cursor-pointer' /> Edit Column
+          </DropdownMenuItem>
           <DropdownMenuItem
             className='text-destructive cursor-pointer'
             onClick={() => setDeleteDialogOpen(true)}>
@@ -79,5 +68,14 @@ export default function ColumnDropdown({ column }: Props) {
         confirmDelete={handleDeleteColumn}
       />
     </>
+  ) : (
+    <HoverCardWrapper
+      trigger={
+        <CircleQuestionMark className='size-8 cursor-pointer lg:size-6' />
+      }>
+      <p className='text-center text-sm font-medium'>
+        Create an account to edit or delete columns.
+      </p>
+    </HoverCardWrapper>
   );
 }
