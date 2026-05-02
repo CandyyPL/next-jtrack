@@ -23,7 +23,7 @@ function Demo({ boardData }: Props) {
           <div className='space-y-2'>
             <h1 className='flex items-center gap-2 text-3xl font-bold text-black'>
               Demo Board
-              <HoverCard
+              <HoverCard // TODO: swap HoverCard for Popover on mobile
                 openDelay={10}
                 closeDelay={100}>
                 <HoverCardTrigger

@@ -143,7 +143,7 @@ export default function JobApplicationCard({
                 </DropdownMenuContent>
               </DropdownMenu>
               {isApplicationUpdated(job.id) && (
-                <HoverCard
+                <HoverCard // TODO: swap HoverCard for Popover on mobile
                   openDelay={10}
                   closeDelay={100}>
                   <HoverCardTrigger
@@ -151,7 +151,7 @@ export default function JobApplicationCard({
                     className='cursor-default'>
                     <TriangleAlert className='text-red-400' />
                   </HoverCardTrigger>
-                  <HoverCardContent className='flex w-48 justify-center bg-red-50'>
+                  <HoverCardContent className='flex justify-center'>
                     <p className='text-sm font-medium'>Unsaved update!</p>
                   </HoverCardContent>
                 </HoverCard>

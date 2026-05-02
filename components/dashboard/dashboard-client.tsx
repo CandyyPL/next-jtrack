@@ -31,6 +31,8 @@ function Dashboard({ boardData }: Props) {
     setSaveLoading(false);
   };
 
+  // TODO: add board rename feature
+
   return (
     <main className='content-height'>
       <div className='container mx-auto p-6'>
