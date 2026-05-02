@@ -1,4 +1,4 @@
-import DemoDashboardWrapper from '@/components/dashboard/demo-dashboard-wrapper';
+import DemoDashboardWrapper from '@/components/dashboard/demo/demo-dashboard-wrapper';
 import { Suspense } from 'react';
 import Loader from '@/components/dashboard/loader';
 

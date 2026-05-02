@@ -1,4 +1,4 @@
-import DemoDashboard from '@/components/dashboard/demo-dashboard';
+import DemoDashboard from '@/components/dashboard/demo/demo-dashboard';
 import { userAgent } from 'next/server';
 import { headers } from 'next/headers';
 import MobileHydrator from '@/components/mobile-hydrator';

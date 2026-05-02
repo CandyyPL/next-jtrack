@@ -4,7 +4,7 @@ import KanbanBoard from '@/components/dashboard/kanban/kanban-board';
 import { AlertTriangle, CircleQuestionMark } from 'lucide-react';
 import ColumnsProvider from '@/lib/context/columns-context/ColumnsProvider';
 import { DEMO_BOARD } from '@/lib/demo-boards';
-import HoverCardWrapper from '@/components/dashboard/hover-card-wrapper';
+import HoverCardWrapper from '@/components/hover-card-wrapper';
 
 export default function DemoDashboard() {
   const boardData = DEMO_BOARD;
