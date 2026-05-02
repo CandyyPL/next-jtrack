@@ -18,7 +18,7 @@ import {
   InputGroupInput,
   InputGroupTextarea,
 } from '@/components/ui/input-group';
-import HoverCardWrapper from '@/components/dashboard/hover-card-wrapper';
+import HoverCardWrapper from '@/components/hover-card-wrapper';
 
 type Props = {
   form: UseFormReturn<JobFormDataType>;

@@ -21,7 +21,7 @@ import { useColumns } from '@/lib/hooks/useColumns';
 import { deleteApplication } from '@/lib/actions/delete-application';
 import EditJobDialog from '@/components/dialogs/job/edit-job-dialog';
 import DeleteJobDialog from '@/components/dialogs/job/delete-job-dialog';
-import HoverCardWrapper from '@/components/dashboard/hover-card-wrapper';
+import HoverCardWrapper from '@/components/hover-card-wrapper';
 
 type JobApplicationCardProps = {
   job: Application;
