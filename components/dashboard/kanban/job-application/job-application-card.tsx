@@ -4,6 +4,7 @@ import {
   Dot,
   Edit2,
   ExternalLink,
+  MapPin,
   MoreVertical,
   Trash2,
   TriangleAlert,
@@ -78,6 +79,14 @@ export default function JobApplicationCard({
                   </>
                 )}
               </div>
+              {job.location && (
+                <div className='flex items-center gap-1'>
+                  <MapPin className='text-muted-foreground' />
+                  <p className='text-muted-foreground my-2 text-xs'>
+                    {job.location}
+                  </p>
+                </div>
+              )}
               {job.desc && (
                 <p className='text-muted-foreground my-2 line-clamp-2 text-xs'>
                   {job.desc}

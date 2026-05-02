@@ -1,6 +1,6 @@
 import { Application } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { Dot, ExternalLink } from 'lucide-react';
+import { Dot, ExternalLink, MapPin } from 'lucide-react';
 
 type JobApplicationCardProps = {
   job: Application | null;
@@ -30,6 +30,14 @@ export default function JobApplicationCardOverlay({
                 </>
               )}
             </div>
+            {job?.location && (
+              <div className='flex items-center gap-1'>
+                <MapPin className='text-muted-foreground' />
+                <p className='text-muted-foreground my-2 text-xs'>
+                  {job.location}
+                </p>
+              </div>
+            )}
             {job?.desc && (
               <p className='text-muted-foreground my-2 line-clamp-2 text-xs'>
                 {job?.desc}

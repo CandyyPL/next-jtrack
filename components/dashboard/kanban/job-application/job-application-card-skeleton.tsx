@@ -1,6 +1,6 @@
 import { Application, SortableProps } from '@/lib/types';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, MapPin } from 'lucide-react';
 
 import { CSS } from '@dnd-kit/utilities';
 
@@ -39,6 +39,14 @@ export default function JobApplicationCardSkeleton({
                   <p className='text-base text-transparent'>{job.salary}</p>
                 )}
               </div>
+              {job.location && (
+                <div className='flex items-center gap-1'>
+                  <MapPin className='text-transparent' />
+                  <p className='my-2 text-xs text-transparent'>
+                    {job.location}
+                  </p>
+                </div>
+              )}
               {job.desc && (
                 <p className='my-2 line-clamp-2 text-xs text-transparent'>
                   {job.desc}
