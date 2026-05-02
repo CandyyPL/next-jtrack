@@ -17,23 +17,20 @@ import JobApplicationCardWrapper from '@/components/dashboard/kanban/job-applica
 import { colors } from '@/lib/colors';
 import { icons } from '@/lib/icons';
 
-type DroppableColumnProps = {
+type Props = {
   columns: ColumnWithApplication[];
   col: ColumnWithApplication;
   boardId: string;
 };
 
-export default function DroppableColumn({
-  columns,
-  col,
-}: DroppableColumnProps) {
+export default function DroppableColumn({ columns, col }: Props) {
   const { setNodeRef } = useDroppable({ id: col.id });
 
   const color = colors.find((c) => c.id === col.color)!;
   const icon = icons.find((i) => i.id === col.icon)!;
 
   return (
-    <Card className='flex min-h-150 flex-1 shrink-0 flex-col gap-0 bg-gray-50/50 p-0 shadow-md'>
+    <Card className='flex min-h-150 min-w-100 flex-col gap-0 p-0 shadow-md'>
       <CardHeader className={`${color.tw} rounded-t-lg py-4 text-white`}>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -47,7 +44,7 @@ export default function DroppableColumn({
       </CardHeader>
       <CardContent
         ref={setNodeRef}
-        className='space-y-2 rounded-b-lg p-4'>
+        className='h-full space-y-2 rounded-b-lg bg-gray-50/50 p-4'>
         <SortableContext
           items={col.applications}
           strategy={verticalListSortingStrategy}>
