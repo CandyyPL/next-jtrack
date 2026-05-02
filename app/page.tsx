@@ -2,6 +2,7 @@ import HeroImageGallery from '@/components/main-page/hero-image-gallery';
 import { Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
 import MainPageStartButtons from '@/components/main-page/main-page-start-buttons';
 import { Suspense } from 'react';
+import { MoonLoader } from 'react-spinners';
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
               Capture, organize and manage your job search in one place.
             </p>
             <div className='flex flex-col items-center gap-4'>
-              <Suspense>
+              <Suspense fallback={<MoonLoader />}>
                 <MainPageStartButtons />
               </Suspense>
               <p className='text-muted-foreground text-sm'>
