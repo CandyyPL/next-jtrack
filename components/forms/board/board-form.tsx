@@ -33,7 +33,7 @@ export default function BoardForm({ form, onSubmit, loading, error }: Props) {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Name*</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Name</FieldLabel>
               <Input
                 {...field}
                 id={field.name}
@@ -50,7 +50,7 @@ export default function BoardForm({ form, onSubmit, loading, error }: Props) {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor={field.name}>Color</FieldLabel>
+              <FieldLabel htmlFor={field.name}>Description</FieldLabel>
               <Textarea
                 {...field}
                 id={field.name}

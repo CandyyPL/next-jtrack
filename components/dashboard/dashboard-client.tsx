@@ -46,7 +46,7 @@ function Dashboard({ boardData }: Props) {
                 className='cursor-pointer'
               />
             </h1>
-            <p className='text-gray-600'>Track your job applications.</p>
+            <p className='text-gray-600'>{boardData?.desc}</p>
           </div>
           {needUpdate ? (
             <Button
