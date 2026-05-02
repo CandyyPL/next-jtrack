@@ -27,6 +27,8 @@ export default function EditBoardForm({ board, closeDialog }: Props) {
 
     await updateBoard(board.id, data);
 
+    // TODO: return error from server action and set the state if needed; do this in other places where server action is used in dialog form
+
     setLoading(false);
     closeDialog();
   };
