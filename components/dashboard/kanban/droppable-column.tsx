@@ -14,7 +14,6 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import JobApplicationCardWrapper from '@/components/dashboard/kanban/job-application/job-application-card-wrapper';
-import { DynamicIcon } from 'lucide-react/dynamic';
 import { colors } from '@/lib/colors';
 import { icons } from '@/lib/icons';
 
@@ -38,7 +37,7 @@ export default function DroppableColumn({
       <CardHeader className={`${color.tw} rounded-t-lg py-4 text-white`}>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
-            <DynamicIcon name={icon.value} />
+            {icon.icon}
             <CardTitle className='text-base font-semibold text-white'>
               {col.name}
             </CardTitle>

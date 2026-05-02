@@ -2,7 +2,6 @@ import { z } from 'zod';
 import { type DraggableAttributes } from '@dnd-kit/core';
 import { type SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { type Transform } from '@dnd-kit/utilities';
-import type { IconName } from 'lucide-react/dynamic';
 
 export const SignInFormSchema = z.object({
   email: z.email(),
@@ -108,7 +107,7 @@ export type Color = {
 export type Icon = {
   id: string;
   name: string;
-  value: IconName;
+  icon: React.ReactNode;
 };
 
 export const JobFormSchema = z.object({
