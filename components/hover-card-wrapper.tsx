@@ -11,15 +11,20 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
 
+type Side = 'top' | 'right' | 'bottom' | 'left' | undefined;
+
 type Props = {
   children: React.ReactNode;
   trigger: React.ReactNode;
+  side?: Side;
 };
 
-export default function HoverCardWrapper({ children, trigger }: Props) {
+export default function HoverCardWrapper({ children, trigger, side }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   const { isMobile } = useStore();
+
+  const contentSide = side ?? 'bottom';
 
   return isMobile ? (
     <Popover
@@ -31,7 +36,7 @@ export default function HoverCardWrapper({ children, trigger }: Props) {
         {trigger}
       </PopoverTrigger>
       <PopoverContent
-        side='bottom'
+        side={contentSide}
         className='flex justify-center'>
         {children}
       </PopoverContent>
@@ -46,7 +51,7 @@ export default function HoverCardWrapper({ children, trigger }: Props) {
         {trigger}
       </HoverCardTrigger>
       <HoverCardContent
-        side='bottom'
+        side={contentSide}
         className='flex justify-center'>
         {children}
       </HoverCardContent>
