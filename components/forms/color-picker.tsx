@@ -13,19 +13,8 @@ export default function ColorPicker({ colors, value, onChange }: Props) {
   const selectedColor = colors.find((c) => c.id === value);
 
   return (
-    <div className='flex flex-wrap items-center justify-center gap-2 space-y-2'>
-      {colors.map((color) => (
-        <button
-          key={color.id}
-          type='button'
-          role='radio'
-          onClick={() => onChange(color.id)}
-          style={{ backgroundColor: color.hex }}
-          className='flex h-8 w-8 cursor-pointer items-center justify-center rounded-md'>
-          {color.id === value && <Check className='size-6 text-white' />}
-        </button>
-      ))}
-      <div className='flex h-10 w-full items-center justify-between rounded-md bg-zinc-300 px-4'>
+    <div className='flex flex-col flex-wrap items-center justify-center gap-2 space-y-2'>
+      <div className='flex w-1/2 items-center justify-between gap-6'>
         <div className='flex items-center gap-2'>
           <div
             className={cn(
@@ -37,6 +26,19 @@ export default function ColorPicker({ colors, value, onChange }: Props) {
         <p className='font-mono text-zinc-600'>
           {selectedColor ? selectedColor.hex : null}
         </p>
+      </div>
+      <div className='flex gap-1'>
+        {colors.map((color) => (
+          <button
+            key={color.id}
+            type='button'
+            role='radio'
+            onClick={() => onChange(color.id)}
+            style={{ backgroundColor: color.hex }}
+            className='flex h-8 w-8 cursor-pointer items-center justify-center rounded-md'>
+            {color.id === value && <Check className='size-6 text-white' />}
+          </button>
+        ))}
       </div>
     </div>
   );
