@@ -22,6 +22,7 @@ type Props = {
   loading: boolean;
   error: string;
   submitButtonText: string;
+  isNew: boolean;
 };
 
 export default function ColumnForm({
@@ -30,6 +31,7 @@ export default function ColumnForm({
   loading,
   error,
   submitButtonText,
+  isNew,
 }: Props) {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -97,6 +99,7 @@ export default function ColumnForm({
               <OrderPicker
                 value={field.value}
                 onChange={field.onChange}
+                isNew={isNew}
               />
               {fieldState.error && (
                 <FieldError>{fieldState.error.message}</FieldError>

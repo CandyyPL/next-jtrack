@@ -1,35 +1,36 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Column, ColumnFormSchema, ColumnFormType } from '@/lib/types';
+import { ColumnFormSchema, ColumnFormType } from '@/lib/types';
 import ColumnForm from '@/components/forms/column/column-form';
 import { useColumns } from '@/lib/hooks/useColumns';
+import { createColumn } from '@/lib/actions/create-column';
 
 type Props = {
-  column: Column;
+  boardId: string;
   closeDialog: () => void;
 };
 
-export default function EditColumnForm({ column, closeDialog }: Props) {
+export default function CreateColumnForm({ boardId, closeDialog }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { handleUpdateColumn } = useColumns();
+  const { columns } = useColumns();
 
   const form = useForm({
     resolver: zodResolver(ColumnFormSchema),
     defaultValues: {
-      name: column.name,
-      color: column.color,
-      listOrder: column.listOrder,
-      icon: column.icon,
+      name: '',
+      color: '',
+      listOrder: columns.length,
+      icon: '',
     },
   });
 
   const onSubmit = async (data: ColumnFormType) => {
     setLoading(true);
 
-    handleUpdateColumn(column.id, data);
+    await createColumn(boardId, data);
 
     setLoading(false);
     closeDialog();
@@ -41,8 +42,8 @@ export default function EditColumnForm({ column, closeDialog }: Props) {
       onSubmit={onSubmit}
       loading={loading}
       error={error}
-      submitButtonText='Save'
-      isNew={false}
+      submitButtonText='Add Column'
+      isNew={true}
     />
   );
 }

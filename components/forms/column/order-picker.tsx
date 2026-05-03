@@ -4,16 +4,21 @@ import { useColumns } from '@/lib/hooks/useColumns';
 type Props = {
   value: number;
   onChange: (value: number) => void;
+  isNew: boolean;
 };
 
-export default function OrderPicker({ value, onChange }: Props) {
+export default function OrderPicker({ value, onChange, isNew }: Props) {
   const { columns } = useColumns();
+
+  const cols = isNew
+    ? [...columns.map((col, idx) => idx), columns.length]
+    : columns.map((col, idx) => idx);
 
   return (
     <div className='flex flex-wrap items-center justify-center gap-2'>
-      {columns.map((col, idx) => (
+      {cols.map((idx) => (
         <button
-          key={col.id}
+          key={idx}
           type='button'
           role='radio'
           onClick={() => onChange(idx)}

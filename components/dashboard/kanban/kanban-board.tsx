@@ -18,6 +18,9 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import JobApplicationCardOverlay from '@/components/dashboard/kanban/job-application/job-application-card-overlay';
 import { useColumns } from '@/lib/hooks/useColumns';
+import { Plus } from 'lucide-react';
+import { Button } from '@/components/shadcn/button';
+import CreateColumnDialog from '@/components/dialogs/column/create-column-dialog';
 
 type Props = {
   boardData: FullBoardData;
@@ -36,6 +39,9 @@ export default function KanbanBoard({ boardData }: Props) {
   const [activeItemId, setActiveItemId] = useState<UniqueIdentifier | null>(
     null
   );
+
+  const [addColumnDialogOpen, setAddColumnDialogOpen] =
+    useState<boolean>(false);
 
   const sortedColumns = columns.sort((a, b) => a.listOrder - b.listOrder);
 
@@ -192,6 +198,13 @@ export default function KanbanBoard({ boardData }: Props) {
                 boardId={boardData.id}
               />
             ))}
+            <Button
+              variant='ghost'
+              className='text-muted-foreground flex min-h-150 min-w-100 flex-col border-2 border-dashed border-zinc-200 text-2xl'
+              onClick={() => setAddColumnDialogOpen(true)}>
+              <Plus />
+              Add Column
+            </Button>
           </div>
           <DragOverlay dropAnimation={{ duration: 200 }}>
             {activeItemId ? (
@@ -199,6 +212,11 @@ export default function KanbanBoard({ boardData }: Props) {
             ) : null}
           </DragOverlay>
         </DndContext>
+        <CreateColumnDialog
+          board={boardData}
+          open={addColumnDialogOpen}
+          setOpen={setAddColumnDialogOpen}
+        />
       </div>
     </>
   );
