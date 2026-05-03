@@ -32,7 +32,10 @@ export const JobFormSchema = z.object({
 export type JobFormDataType = z.infer<typeof JobFormSchema>;
 
 export const ColumnFormSchema = z.object({
-  name: z.string().min(3, 'Enter at least 3 characters'),
+  name: z
+    .string()
+    .min(3, 'Enter at least 3 characters')
+    .max(30, 'Enter at most 30 characters'),
   color: z.string(),
   icon: z.string(),
   listOrder: z.number(),
@@ -41,8 +44,14 @@ export const ColumnFormSchema = z.object({
 export type ColumnFormType = z.infer<typeof ColumnFormSchema>;
 
 export const BoardFormSchema = z.object({
-  name: z.string().min(3, 'Enter at least 3 characters'),
-  desc: z.string().min(3, 'Enter at least 3 characters'),
+  name: z
+    .string()
+    .min(3, 'Enter at least 3 characters')
+    .max(30, 'Enter at most 30 characters'),
+  desc: z
+    .string()
+    .min(3, 'Enter at least 3 characters')
+    .max(50, 'Enter at most 50 characters'),
 });
 
 export type BoardFormType = z.infer<typeof BoardFormSchema>;
