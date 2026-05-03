@@ -198,13 +198,15 @@ export default function KanbanBoard({ boardData }: Props) {
                 boardId={boardData.id}
               />
             ))}
-            <Button
-              variant='ghost'
-              className='text-muted-foreground flex min-h-150 min-w-100 flex-col border-2 border-dashed border-zinc-200 text-2xl'
-              onClick={() => setAddColumnDialogOpen(true)}>
-              <Plus />
-              Add Column
-            </Button>
+            {isAuthenticated() && (
+              <Button
+                variant='ghost'
+                className='text-muted-foreground flex min-h-150 min-w-100 flex-col border-2 border-dashed border-zinc-200 text-2xl'
+                onClick={() => setAddColumnDialogOpen(true)}>
+                <Plus />
+                Add Column
+              </Button>
+            )}
           </div>
           <DragOverlay dropAnimation={{ duration: 200 }}>
             {activeItemId ? (
