@@ -183,7 +183,7 @@ export default function KanbanBoard({ boardData }: Props) {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
           onDragCancel={handleDragCancel}>
-          <div className='flex flex-col gap-4 xl:flex-row xl:justify-center'>
+          <div className='flex flex-col gap-4 xl:flex-row'>
             {sortedColumns.map((col) => (
               <DroppableColumn
                 key={col.id}
